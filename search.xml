@@ -125,12 +125,19 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">ls /dev/dri</span><br><span class="line">cat /sys/kernel/debug/dri/0/i915_frequency_info</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>群晖替换驱动文件（将 i915.ko 文件放入 &#x2F;tmp&#x2F; 文件夹下）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">rm /usr/lib/modules/i915.ko &amp;&amp; cp /tmp/i915.ko /usr/lib/modules/</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">rm /usr/lib/modules/i915.ko &amp;&amp; cp /tmp/i915.ko /usr/lib/modules/</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>让虚拟机支持网络唤醒<br>参考：<a href="https://bbs.hassbian.com/thread-16061-1-1.html">https://bbs.hassbian.com/thread-16061-1-1.html</a></p>
 </li>
-<li><p>在虚拟机下控制主板RGB<br>OpenRGB：<a href="https://openrgb.org/releases.html">https://openrgb.org/releases.html</a></p>
+<li><p>在虚拟机下控制主板RGB<br>安装 OpenRGB：<a href="https://openrgb.org/releases.html">https://openrgb.org/releases.html</a><br>直通 USB 中的 RGB 控制器，打开 OpenRGB（第一次需要管理员权限）</p>
+</li>
+<li><p>虚拟机 Windows 关机后 HDMI 无声音<br>原因不明，临时解决方案</p>
 </li>
 </ul>
+<ol>
+<li>不要关机或重启，用休眠替代</li>
+<li>使用 USB 声卡或板载声卡接口输出音频</li>
+</ol>
 ]]></content>
   </entry>
 </search>
