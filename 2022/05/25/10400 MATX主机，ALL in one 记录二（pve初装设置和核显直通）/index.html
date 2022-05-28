@@ -17,7 +17,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>10400 MATX主机，ALL in one 记录二（pve初装设置和核显直通） |  秘密基地</title>
+      <title>10400 MATX主机，ALL in one 记录二（pve 初装设置和核显直通） |  秘密基地</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -83,7 +83,7 @@ ga('send', 'pageview');
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  10400 MATX主机，ALL in one 记录二（pve初装设置和核显直通）
+  10400 MATX主机，ALL in one 记录二（pve 初装设置和核显直通）
 </h1>
  
 
@@ -153,10 +153,19 @@ ga('send', 'pageview');
 <li>尝试使用其他视频接口<br>我现在使用的  华擎 z490m pro4 直通后 HDMI 无信号输出，只有 VGA 和 DP 接口使用正常，大概类似于黑苹果无法使用 HDMI 口（其实 romfile 应该还是有用，我懒得折腾了，反正能用了）<br>参考：<a target="_blank" rel="noopener" href="https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-13.html">https://apple.sqlsec.com/6-实用姿势/6-13.html</a></li>
 </ul>
 <h2 id="一些别的坑"><a href="#一些别的坑" class="headerlink" title="一些别的坑"></a>一些别的坑</h2><ul>
-<li>因为开始的时候没有 DP 转接头，我也不确定 DP 接口有没有信号输出，想着干脆做 GVT-G 让群晖和 Windows 都能用上核显算了，于是买了 USB 转 HDMI ，然后手贱觉得 type-c 比较小巧还有弯头可选<br>买回来之后才知道台式机 type-c 不是全功能 C 口，根本无法传输视频信号，并且 type-c 视频输出其实也是走的 DP 输出，对于我当时的情况无济于事<br>所以如果要做 GVT-G 和视频输出，认准这几个字 “<strong>USB外置显卡</strong>“！（因为不确定这玩意解码到底走的 GPU 还是 CPU 或者是外置显卡本身，我最后还是放弃了，还好 DP 信号正常）</li>
-<li>华擎主板 改显存，增加 GVT-G “显卡” 需要使用这个引导<br><a target="_blank" rel="noopener" href="https://github.com/XDleader555/grub_setup_var">https://github.com/XDleader555/grub_setup_var</a><br>指令参考（我这个主板实测只能改到 512m，1G无法开机，老老实实扣电池）<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup_var SaSetup 0xAF 0x3</span><br></pre></td></tr></table></figure></li>
-<li>pve 7.1&#x2F;7.2 某些内核直通可能存在问题，需要尝试更换内核<br>据说正常可用的版本有 5.13.19-4-pve （我现在已经在用 PVE 6.4 了，所以不敢保证）<br>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/822c167d0c3a">https://www.jianshu.com/p/822c167d0c3a</a></li>
+<li><p>因为开始的时候没有 DP 转接头，我也不确定 DP 接口有没有信号输出，想着干脆做 GVT-G 让群晖和 Windows 都能用上核显算了，于是买了 USB 转 HDMI ，然后手贱觉得 type-c 比较小巧还有弯头可选<br>买回来之后才知道台式机 type-c 不是全功能 C 口，根本无法传输视频信号，并且 type-c 视频输出其实也是走的 DP 输出，对于我当时的情况无济于事<br>所以如果要做 GVT-G 和视频输出，认准这几个字 “<strong>USB外置显卡</strong>“！（因为不确定这玩意解码到底走的 GPU 还是 CPU 或者是外置显卡本身，我最后还是放弃了，还好 DP 信号正常）</p>
+</li>
+<li><p>华擎主板 改显存，增加 GVT-G “显卡” 需要使用这个引导<br><a target="_blank" rel="noopener" href="https://github.com/XDleader555/grub_setup_var">https://github.com/XDleader555/grub_setup_var</a><br>指令参考（我这个主板实测只能改到 512m，1G无法开机，老老实实扣电池）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup_var SaSetup 0xAF 0x3</span><br></pre></td></tr></table></figure></li>
+<li><p>pve 7.1&#x2F;7.2 某些内核直通可能存在问题，需要尝试更换内核<br>据说正常可用的版本有 5.13.19-4-pve （我现在已经在用 PVE 6.4 了，所以不敢保证）<br>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/822c167d0c3a">https://www.jianshu.com/p/822c167d0c3a</a></p>
+</li>
+<li><p>虚拟机 Windows 关机后 HDMI 无声音<br>原因不明，临时解决方案</p>
+</li>
 </ul>
+<ol>
+<li>不要使用关机选项，用休眠替代（重启或关机后无声音，也可以用休眠后重新开机恢复，奇葩的 bug）</li>
+<li>使用 USB 声卡或板载声卡接口输出音频<br><img src="/images/2022/2_5.png"></li>
+</ol>
 <h2 id="其他可能用到的东西"><a href="#其他可能用到的东西" class="headerlink" title="其他可能用到的东西"></a>其他可能用到的东西</h2><ul>
 <li><p>群晖核显驱动状态和硬解状态查询</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">ls /dev/dri</span><br><span class="line">cat /sys/kernel/debug/dri/0/i915_frequency_info</span><br></pre></td></tr></table></figure>
@@ -164,17 +173,11 @@ ga('send', 'pageview');
 <li><p>群晖替换驱动文件（将 i915.ko 文件放入 &#x2F;tmp&#x2F; 文件夹下）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">rm /usr/lib/modules/i915.ko &amp;&amp; cp /tmp/i915.ko /usr/lib/modules/</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>让虚拟机支持网络唤醒<br>参考：<a target="_blank" rel="noopener" href="https://bbs.hassbian.com/thread-16061-1-1.html">https://bbs.hassbian.com/thread-16061-1-1.html</a></p>
+<li><p>让 VM 支持网络唤醒<br>参考：<a target="_blank" rel="noopener" href="https://bbs.hassbian.com/thread-16061-1-1.html">https://bbs.hassbian.com/thread-16061-1-1.html</a></p>
 </li>
-<li><p>在虚拟机下控制主板RGB<br>安装 OpenRGB：<a target="_blank" rel="noopener" href="https://openrgb.org/releases.html">https://openrgb.org/releases.html</a><br>直通 USB 中的 RGB 控制器，打开 OpenRGB（第一次需要管理员权限）</p>
-</li>
-<li><p>虚拟机 Windows 关机后 HDMI 无声音<br>原因不明，临时解决方案</p>
+<li><p>在虚拟机下控制主板RGB<br>安装 OpenRGB：<a target="_blank" rel="noopener" href="https://openrgb.org/releases.html">https://openrgb.org/releases.html</a><br>直通 USB 中的 RGB 控制器，下载安装开启 OpenRGB（第一次打开需要管理员权限）</p>
 </li>
 </ul>
-<ol>
-<li>不要关机或重启，用休眠替代</li>
-<li>使用 USB 声卡或板载声卡接口输出音频</li>
-</ol>
  
       <!-- reward -->
       
