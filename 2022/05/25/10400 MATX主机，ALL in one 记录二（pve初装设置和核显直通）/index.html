@@ -144,7 +144,7 @@ ga('send', 'pageview');
 </ul>
 <h5 id="3）直通设备数量"><a href="#3）直通设备数量" class="headerlink" title="3）直通设备数量"></a>3）直通设备数量</h5><p>PVE 模拟了主板的真实工作状态，所以 PCI、SATA、USB 都是有直通上限的，如果使用了超过上限的直通设备（包括写在 &#x2F;etc&#x2F;pve&#x2F;nodes&#x2F;pve&#x2F;qemu-server&#x2F;xxx.conf 文件下的直通设备），开机会就会报 400 错误<br><img src="/images/2022/2_2.png" alt="400 错误"><br>    Parameter verification failed. (400)<br>    undefined: property is not defined in schema and the schema does not allow additional properties<br>有以下解决方案</p>
 <ul>
-<li>编辑 &#x2F;etc&#x2F;pve&#x2F;nodes&#x2F;pve&#x2F;qemu-server&#x2F;xxx.conf 文件，使用这样的参数（可能需要这些设备在一个分组下）<br><code>hostpci1: 00:1f.3,00:1f.4</code></li>
+<li>编辑 &#x2F;etc&#x2F;pve&#x2F;nodes&#x2F;pve&#x2F;qemu-server&#x2F;xxx.conf 文件，使用这样的参数（可能需要这些设备在一个分组下）<br><code>hostpci1: 00:1f.3;00:1f.4;00:1f.5;00:1f.6</code></li>
 <li>直通整个分组（修改文件或在 WEB 页面中选中 所有功能）<br><code>hostpci1: 00:1f</code></li>
 <li>直通整个控制器，如 USB 控制器<br><code>00:14.0 USB controller: Intel Corporation Comet Lake USB 3.1 xHCI Host Controller</code><br><img src="/images/2022/2_4.png" alt="我的配置参考"><br>官方WIKI：<a target="_blank" rel="noopener" href="https://pve.proxmox.com/wiki/Pci_passthrough">https://pve.proxmox.com/wiki/Pci_passthrough</a></li>
 </ul>
