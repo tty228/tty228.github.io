@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/05/25/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>RouterOS(ROS) UPNP 设置-自动老化及重拨后修改 IP</title>
+    <url>/2022/06/09/RouterOS(ROS)UPNP%E8%AE%BE%E7%BD%AE-%E8%87%AA%E5%8A%A8%E8%80%81%E5%8C%96%E5%8F%8A%E9%87%8D%E6%8B%A8%E5%90%8E%E4%BF%AE%E6%94%B9IP/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
+<li>以下脚本命令基于 ROS 7.2.3，其他版本不一定适用</li>
+</ul>
+<p>ROS 开启 UPNP 后，会自动映射端口，所生成的端口映射可以在“IP” – “Firewall” – “NAT”中查询，但 ROS 自动生成的端口映射没有老化时间，需要手动进行删除，或使用脚本进行删除，这里记录一下编写的脚本。</p>
+<p>upnp 老化（自行设定定时执行）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ip firewall nat;</span><br><span class="line">:foreach singleRule in=[find where dynamic=yes] do=&#123;</span><br><span class="line"> :if ([:ping [get $singleRule to-addresses] count=2] &lt; 1) do=&#123;</span><br><span class="line">remove $singleRule</span><br><span class="line">:log warning &quot;*** 删除不可用的 upnp 规则 ***&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>拨号后自动修改 dst-address （建议 pppoe 接口绑定拨号脚本，然后在 PPP - Profiles 下添加）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:global addold</span><br><span class="line">:global addnew</span><br><span class="line">:set addnew [/interface get [/interface find name=&quot;pppoe-out1&quot;] running]</span><br><span class="line">:if ($addnew=true) do=&#123;</span><br><span class="line">:set addold [/ip address get [/ip address find dynamic=yes interface=&quot;pppoe-out1&quot;] address]</span><br><span class="line">:set addold [:pick $addold 0 ([:len $addold ] -3)]</span><br><span class="line">/ip firewall nat set [find dynamic=yes comment ~&quot;^upnp*.&quot;] dst-address=$addold</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>]]></content>
   </entry>
   <entry>
     <title>ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）</title>
@@ -147,6 +144,24 @@
 <p><img src="/images/2022/1_10.jpg" alt="点亮和拷机测试" title="点亮和拷机测试"></p>
 <p><img src="/images/2022/1_11.jpg" alt="娱乐大师跑分" title="娱乐大师跑分"></p>
 <p><img src="/images/2022/1_12.png" alt=" " title=" "></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/05/25/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
 </search>
