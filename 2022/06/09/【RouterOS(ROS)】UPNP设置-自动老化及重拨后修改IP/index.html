@@ -99,7 +99,7 @@ ga('send', 'pageview');
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">242</span>
+            <span class="post-count">238</span>
         </span>
     </span>
 
@@ -123,12 +123,11 @@ ga('send', 'pageview');
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>以下脚本命令基于 ROS 7.2.3，其他版本不一定适用</li>
-<li>ROS 开启 UPNP 后，会自动映射端口，所生成的端口映射可以在 IP - Firewall - NAT 中查询，但 ROS 自动生成的端口映射没有老化时间，需要手动进行删除，或使用脚本进行删除，这里记录一下编写的脚本。</li>
-</ul>
-<p>####脚本</p>
-<ul>
+  <ul>
+<li><p>以下脚本命令基于 ROS 7.2.3，其他版本不一定适用</p>
+</li>
+<li><p>ROS 开启 UPNP 后，会自动映射端口，所生成的端口映射可以在 IP - Firewall - NAT 中查询，但 ROS 自动生成的端口映射没有老化时间，需要手动进行删除，或使用脚本进行删除，这里记录一下编写的脚本。</p>
+</li>
 <li><p>upnp 老化（自行设定定时执行）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/ip firewall nat;</span><br><span class="line">:foreach singleRule in=[find where dynamic=yes] do=&#123;</span><br><span class="line"> :if ([:ping [get $singleRule to-addresses] count=2] &lt; 1) do=&#123;</span><br><span class="line">remove $singleRule</span><br><span class="line">:log warning &quot;*** 删除不可用的 upnp 规则 ***&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </li>
