@@ -109,7 +109,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.5k</span>
+            <span class="post-count">2.8k</span>
         </span>
     </span>
 
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">10 min</span>
+            <span class="post-count">11 min</span>
         </span>
     </span>
 </div>
@@ -190,7 +190,19 @@ var _hmt = _hmt || [];
 </li>
 <li><p>在虚拟机下控制主板RGB<br>安装 OpenRGB：<a target="_blank" rel="noopener" href="https://openrgb.org/releases.html">https://openrgb.org/releases.html</a><br>直通 USB 中的 RGB 控制器，下载安装开启 OpenRGB（第一次打开需要管理员权限）</p>
 </li>
+<li><p>PVE 内核 5.15 会出现显卡直通 (HDMI 直通) 下 Windows 虚拟机的 鼠标指针不显示 或 鼠标反应卡顿 的问题。解决方法如下:</p>
+</li>
 </ul>
+<ol>
+<li>使用 noVNC 或 RDP 登录进 Windows，在“控制面板 - 鼠标 - 指针选项”中启用“显示鼠标轨迹”，并把滑块拖至最左 (基本不影响显示体验)；</li>
+<li>升级到 6.x 内核或降级到 5.13 内核<br>检查是否安装 5.13 版内核:<br>proxmox-boot-tool kernel list</li>
+</ol>
+<p>如果 5.13 内核未被安装或者内核被手动清理的话可能需要手动安装 5.13 内核:<br>apt install pve-kernel-5.13</p>
+<p>安装成功后再次执行以下命令查看已安装的内核:<br>proxmox-boot-tool kernel list</p>
+<p>固定之后启动的内核版本:<br>proxmox-boot-tool kernel pin 5.13.19-6-pve</p>
+<p>保存配置:<br>proxmox-boot-tool refresh</p>
+<p>重启后内核即被回退至 5.13。</p>
+<p>如果你想解除内核固定，可以执行:<br>proxmox-boot-tool kernel unpin 5.13.19-6-pve<br>proxmox-boot-tool refresh</p>
 <h2 id="经历过的死机状况记录"><a href="#经历过的死机状况记录" class="headerlink" title="经历过的死机状况记录"></a>经历过的死机状况记录</h2><ol>
 <li>J4125 的时候，USB 口不够用，接了两个 USB 集线器，集线器上插超过 3 个 USB 设备直通给 Windows，一小时之内绝对会 boom，至今不知道是那块主板的问题还是 PVE 的问题（后来一直插着 3 个 USB，再也没遇到过死机现象，升级 PVE 后也没测试，没深究原因）</li>
 <li>刚装完新机子，拿回家用之后莫名其妙的不稳定，脸黑就死机，重装并升级到 7.2 之后好了，误会是内核的原因，直到前几天想改风扇转速，顺便开节能，死机情况又发生了，才确定是主板开启 C6&#x2F;C7 节能的原因。</li>
@@ -354,7 +366,7 @@ var _hmt = _hmt || [];
     <ul>
       <li>
         Copyrights &copy;
-        2022
+        2022-2023
         <i class="ri-heart-fill heart_icon"></i> tty228
       </li>
     </ul>
