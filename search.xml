@@ -175,7 +175,7 @@
   <entry>
     <title>【Proxmox VE】PVE 首页显示 CPU、主板、NVME、硬盘 温度等信息</title>
     <url>/2022/06/18/%E3%80%90Proxmox%20VE%E3%80%91PVE%20%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%20CPU%E3%80%81%E4%B8%BB%E6%9D%BF%E3%80%81NVME%E3%80%81%E7%A1%AC%E7%9B%98%20%E6%B8%A9%E5%BA%A6%E7%AD%89%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
 <li></li>
 </ul>
 <p>网上各种版本的 PVE 首页温度 DIY 脚本，但萝卜青菜各有所爱，总是难得遇到钟情的那一款<br>自行 DIY 的话，正则 + js 入门确实需要点门槛<br>所以这里提供另一种实现方式 json，清晰明了，便于阅读，修改简单<br>无论是 温度、风扇转速、硬盘温度、硬盘信息都可以轻松搞定</p>
@@ -251,7 +251,7 @@
   <entry>
     <title>【RouterOS(ROS)】自动更新分流规则</title>
     <url>/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
 <li><p>分流设置参照 ：<a href="https://www.itxiaoniao.net/archives/448/" title="ROS 分流设置">ROS 分流设置</a></p>
 </li>
 <li><p>此处不再详述</p>
@@ -266,14 +266,14 @@
       <tags>
         <tag>RouterOS</tag>
         <tag>ROS</tag>
-        <tag>ROS分流</tag>
         <tag>ROS脚本</tag>
+        <tag>ROS分流</tag>
       </tags>
   </entry>
   <entry>
     <title>【RouterOS(ROS)】UPNP 设置 - 自动老化及重拨后修改 IP</title>
     <url>/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91UPNP%E8%AE%BE%E7%BD%AE-%E8%87%AA%E5%8A%A8%E8%80%81%E5%8C%96%E5%8F%8A%E9%87%8D%E6%8B%A8%E5%90%8E%E4%BF%AE%E6%94%B9IP/</url>
-    <content><![CDATA[<ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
 <li><p>以下脚本命令基于 ROS 7.2.3，其他版本不一定适用</p>
 </li>
 <li><p><strong>此脚本在 7.9 或更早已经失效，新版本的 ROS 不允许删除动态对象</strong></p>
@@ -293,14 +293,79 @@
       <tags>
         <tag>RouterOS</tag>
         <tag>ROS</tag>
-        <tag>ROS脚本</tag>
         <tag>ROS UPNP</tag>
+        <tag>ROS脚本</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>ALL in one 记录一（购买及组装篇-十代主机10400）</title>
+    <url>/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%B8%80%EF%BC%88%E8%B4%AD%E4%B9%B0%E5%8F%8A%E7%BB%84%E8%A3%85%E7%AF%87-%E5%8D%81%E4%BB%A3%E4%B8%BB%E6%9C%BA10400%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="前因"><a href="#前因" class="headerlink" title="前因"></a>前因</h2><p>家里使用的是 J4125 小主机，原先只是为了做个软路由，然后挂挂青龙面板薅羊毛，但后来由于媳妇是在用不习惯电视的视频软件（没有弹幕、会员费用高、操作不方便、零零散散的独占节目太多又不想每个都充会员）</p>
+<p>于是就在 J4125 上面虚拟化了一个 Windows 作为 HTPC 使用，但这对于 J4125 来说实在是太吃力了 </p>
+<p><img src="/images/2022/1_1.png"></p>
+<p>尤其是当初装修的时候没规划好，导致弱电设备只能放在酒柜里，散热不太好，一到夏天就开始过热降频，于是打算 618 入手，但最终还是没忍住剁手，希望 618 不会遭受太多背刺（虽然大多东西都是海鲜市场购入）</p>
+<p><img src="/images/2022/1_2.jpg" alt="弱电柜" title="弱电柜"></p>
+<p>海鲜市场零零散散淘了一个月，前几天终于将配件购买完成。</p>
+<p>在这里对踩过的坑，PVE 直通、调试等做一个记录，避免自己忘记，也希望给看到的网友带来一点帮助。</p>
+<p><img src="/images/2022/1_3.jpg" alt="成品展示" title="成品展示"></p>
+<p><img src="/images/2022/1_4.png" alt="功耗（PVE 打开 ROS+openwrt，空载状态）" title="功耗（PVE 打开 ROS+openwrt，空载状态）"></p>
+<h2 id="配件清单和选购原因"><a href="#配件清单和选购原因" class="headerlink" title="配件清单和选购原因"></a>配件清单和选购原因</h2><p><img src="/images/2022/1_5.jpg" alt="购买备注" title="购买备注"></p>
+<h4 id="机箱（第一个坑）："><a href="#机箱（第一个坑）：" class="headerlink" title="机箱（第一个坑）："></a>机箱（第一个坑）：</h4><p>组装 ITX 或者 MATX 主机，一定要先选好机箱再围绕机箱选购其他配件，我一开始就是没挑好机箱就开始买配件，最后又把还在路上的电源给退了，而且如果把内存条插槽的数量降一降，还可以选择更小的主板，但当时我已经在海鲜市场上买好了主板，于是机箱选起来很蛋疼，花了我很久的时间 </p>
+<p>因为柜子空间为 80cm<em>36cm</em>50cm，所以只能选择长度小于 32 的机箱（还要考虑插头预留长度），所以 pass 掉了很多机箱，备注都在上图，最终选择了 小喆优品B3全铝MATX机箱 蓝色款，326<em>161</em>275</p>
+<p>黑色版还能便宜 40 块，但颜狗还是买了蓝色款。</p>
+<p><img src="/images/2022/1_6.jpg" alt="配合弯头电源线，尺寸完美" title="配合弯头电源线，尺寸完美"></p>
+<h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU:"></a>CPU:</h4><p>我选择了 I5-10400，同为UHD630的核显， i3-10100 应该就够用了，但是还是比较馋 8核16线程的 10400，因为需要挂载的虚拟机比较多，RouterOS + OpenWrt + NAS + HassOS + Windows + CentOS ，这里可以降低需求，8代9代的价格的话，还不如买10代，还可以选择 QSRK 等不限型号的 CPU，进一步压缩价格。<br>（J4125再次传来不堪重负的声音 ）</p>
+<p><img src="/images/2022/1_7.jpg" alt="CPU" title="CPU"></p>
+<h4 id="主板（第二个坑）："><a href="#主板（第二个坑）：" class="headerlink" title="主板（第二个坑）："></a>主板（第二个坑）：</h4><p>本来和 CPU 一样，打算 618 京东买盒装，但因为没忍到 618，海鲜市场淘了华擎 Z490m pro4（本来是在 B460m pro4 、钢铁传奇、B460M-HDV-A之中选一个的，但突然刷到一个没背板的z490，看到4个PCI插槽直接就买了，但实际根本没用上 ，还导致了机箱和电源购买差点翻车）</p>
+<p>这里要重点说一下，500系列因为要兼容 10、11 系的 CPU，导致如果使用 10 系 CPU 的话，很多主板第一个 m.2 插槽是无法使用的，还好没等到 618 ，不然买了 560 我就傻眼了。</p>
+<p>400系主板的话，因为 400 系主板设计原因，基本都是妥协后的产物，根据网上评论还有几个大坑</p>
+<h5 id="1-华硕系主板"><a href="#1-华硕系主板" class="headerlink" title="1.华硕系主板"></a>1.华硕系主板</h5><p>存在核显无法开机的问题，可以通过 BIOS、亮机卡等操作恢复（注意别买到相关型号，要买的话，确定 BIOS 升级可以解锁，并升级 BIOS）</p>
+<p>详见：</p>
+<p><a href="https://tieba.baidu.com/p/6758134915">https://tieba.baidu.com/p/6758134915</a></p>
+<p><a href="https://tieba.baidu.com/p/7668455948">https://tieba.baidu.com/p/7668455948</a></p>
+<h5 id="2-微星系主板"><a href="#2-微星系主板" class="headerlink" title="2.微星系主板"></a>2.微星系主板</h5><p>部分主板存在 pci、m.2 互相冲突，无法插满或降速的问题，当时怕海鲜市场淘主板记错型号，没选微星</p>
+<p>但刚刚搜百度发现问题主要存在360、450、560主板，完全没问题</p>
+<p>详见：</p>
+<p><a href="https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc">https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc</a></p>
+<p><a href="https://www.chiphell.com/thread-2320570-1-1.html">https://www.chiphell.com/thread-2320570-1-1.html</a></p>
+<p><a href="https://tieba.baidu.com/p/6761957926">https://tieba.baidu.com/p/6761957926</a></p>
+<h5 id="3-技嘉系主板"><a href="#3-技嘉系主板" class="headerlink" title="3.技嘉系主板"></a>3.技嘉系主板</h5><p>没有理由，不买</p>
+<h5 id="4-华擎系主板"><a href="#4-华擎系主板" class="headerlink" title="4.华擎系主板"></a>4.华擎系主板</h5><p>B460M RRO4、B460M 钢铁传奇、华擎 B460M-HDV-A、华擎 Z490M RRO4 均无 PCI 、M.2 冲突</p>
+<p>华擎系主板均选择了 M.2 插槽和 SATA 冲突，插入第一个 M.2 会导致禁用一个 SATA 接口，如果是为了 NAS 使用慎选</p>
+<p>详见：</p>
+<p><a href="https://www.asrock.com/mb/Intel/B460M%20Pro4/index.tw.asp#Specification">https://www.asrock.com/mb/Intel/B460M%20Pro4/index.tw.asp#Specification</a></p>
+<h5 id="5-其他"><a href="#5-其他" class="headerlink" title="5.其他"></a>5.其他</h5><p>精力有限，没看</p>
+<h4 id="电源："><a href="#电源：" class="headerlink" title="电源："></a>电源：</h4><p>再重复一遍，一定要先选好机箱再买 主板、电源、散热器</p>
+<p>都怪京东送了一张 -30 的优惠券，买了 ATX 电源，后来发现跟 24*24 的标准板放一起，直接超尺寸，于是路上就被我退了。</p>
+<p>功率算出来满载是 100~150 ，但实在找不到这么小的电源，用 DC 电源、1U 什么的又怕翻车，老老实实京东买了 SFX 铜牌</p>
+<h4 id="硬盘："><a href="#硬盘：" class="headerlink" title="硬盘："></a>硬盘：</h4><p>还是因为怕翻车，买了三星，简单说一下</p>
+<p>970 EVO Plus：速度快、但发热量高、有缓存设计</p>
+<p>980：速度慢一些，性价比高、无缓存设计、发热低</p>
+<p>因为担心 PVE 断电丢配置啥的，买了有缓存的 970  </p>
+<h4 id="网卡："><a href="#网卡：" class="headerlink" title="网卡："></a>网卡：</h4><p>本来想买 I350 的，因为馋 SR-IOV ，但价格实在太高了，还都是寨卡（担心啸叫等问题），最后还是买了 I340 富士通版本<br><img src="/images/2022/1_8.jpg" alt="I340" title="I340"></p>
+<p>软路由常见型号和对比详见：</p>
+<p><a href="https://www.bilibili.com/read/cv15982632">https://www.bilibili.com/read/cv15982632</a></p>
+<p>寨卡分辨等：</p>
+<p><a href="https://www.chiphell.com/thread-2148116-1-1.html">https://www.chiphell.com/thread-2148116-1-1.html</a></p>
+<h4 id="散热器："><a href="#散热器：" class="headerlink" title="散热器："></a>散热器：</h4><p>其实这个是无用需求，玩虚拟机，放柜子里看不到，拷机温度不超过60，买什么 RGB ，我也不知道 :fa-frown-o:</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为重要的配件直接京东某宝，所以的确没有翻车，但其实价格方面没有便宜很多，但因为长年外地出差，担心翻车没法处理，还是没省这个钱。</p>
+<p>没改功耗墙什么的，拷机的时候全核 4.0 只能保持大概 20s（功耗 100w） ，然后就降频到 3.2G（功耗 65w）</p>
+<p>没改 BIOS 的话，空载（PVE 只开 ROS、openwrt ，无网络负载）功耗大概是 30<del>32w，稍稍开了一点节能选项（CPU 开到 C6），待机功率降到 25</del>26w，算是比较满足了</p>
+<p>本来设置了风扇按温度开关，但实际发现根本多不了什么功耗，索性一直转了。</p>
+<p>功耗方面稍稍有点高，主要原因应该还是电源买大了转化率不够高（印象里一般来说电源50%左右转化率最高，DC 电源就更好一点）</p>
+<p>机箱的话还算比较好装，毕竟挺大的，唯一蛋疼的就是装了底部风扇之后，第四个 PCI 插槽被完全挡住了，以后升万兆大概只能拆风扇，或者换 X1 插槽的千兆卡了。</p>
+<p>总体来说比较满意。</p>
+<p>下一篇再写 PVE 的安装 和直通等。</p>
+<p><img src="/images/2022/1_9.jpg" alt="机箱内部" title="机箱内部"></p>
+<p><img src="/images/2022/1_10.jpg" alt="点亮和拷机测试" title="点亮和拷机测试"></p>
+<p><img src="/images/2022/1_11.jpg" alt="娱乐大师跑分" title="娱乐大师跑分"></p>
+<p><img src="/images/2022/1_12.png" alt=" " title=" "></p>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>]]></content>
   </entry>
   <entry>
     <title>ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）</title>
     <url>/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&amp;%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&amp;HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/</url>
-    <content><![CDATA[<p>因为新购入了主机，需要重新调试 PVE ，在这里做一些记录</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因为新购入了主机，需要重新调试 PVE ，在这里做一些记录</p>
 <h2 id="PVE初装"><a href="#PVE初装" class="headerlink" title="PVE初装"></a>PVE初装</h2><h4 id="1-BIOS设置"><a href="#1-BIOS设置" class="headerlink" title="1. BIOS设置"></a>1. BIOS设置</h4><p>1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间<br>PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间<br>2）确认开启虚拟化<br>根据需要确认开启或关闭 CSM 、CPU 节能、板载声卡、来电自启动等选项（CPU C6&#x2F;C7&#x2F;C10 等节能请确认硬件支持再开启，以免造成低负载随机死机）</p>
 <h4 id="2-PVE安装"><a href="#2-PVE安装" class="headerlink" title="2. PVE安装"></a>2. PVE安装</h4><p>官网下载镜像：<a href="https://www.proxmox.com/en/downloads">https://www.proxmox.com/en/downloads</a><br>使用 U盘刻录软件刻录即可，我这里使用的是 balenaEtcher<br>为了方便设置管理口，只插上一根自动分配IP的网线到要要设置的管理口上，IP 可以在安装界面上更改，主要是为了分辨网口编号<br>（尽量不要使用板载网卡，有些主板官方内核板载网卡、板载声卡等设备无法拆分，会导致后续声卡直通时出问题，我这里从 I340T4 里面选了一个口作为管理口使用）</p>
 <h4 id="3-PVE设置"><a href="#3-PVE设置" class="headerlink" title="3. PVE设置"></a>3. PVE设置</h4><h5 id="1）删除-local-lvm-分区，只留下-local-分区"><a href="#1）删除-local-lvm-分区，只留下-local-分区" class="headerlink" title="1）删除 local-lvm 分区，只留下 local 分区"></a>1）删除 local-lvm 分区，只留下 local 分区</h5><p>避免空间浪费，而且 PVE 首页上显示的空间剩余指的是 local 分区，我使用 J4125 的时候就发生过一次 local-lvm 塞满造成的 IO-err，推荐新装 PVE 时进行设置，不然还要备份还原虚拟机，比较麻烦</p>
@@ -385,88 +450,5 @@
         <tag>PVE核显直通</tag>
         <tag>核显直通</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>ALL in one 记录一（购买及组装篇-十代主机10400）</title>
-    <url>/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%B8%80%EF%BC%88%E8%B4%AD%E4%B9%B0%E5%8F%8A%E7%BB%84%E8%A3%85%E7%AF%87-%E5%8D%81%E4%BB%A3%E4%B8%BB%E6%9C%BA10400%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="前因"><a href="#前因" class="headerlink" title="前因"></a>前因</h2><p>家里使用的是 J4125 小主机，原先只是为了做个软路由，然后挂挂青龙面板薅羊毛，但后来由于媳妇是在用不习惯电视的视频软件（没有弹幕、会员费用高、操作不方便、零零散散的独占节目太多又不想每个都充会员）</p>
-<p>于是就在 J4125 上面虚拟化了一个 Windows 作为 HTPC 使用，但这对于 J4125 来说实在是太吃力了 </p>
-<p><img src="/images/2022/1_1.png"></p>
-<p>尤其是当初装修的时候没规划好，导致弱电设备只能放在酒柜里，散热不太好，一到夏天就开始过热降频，于是打算 618 入手，但最终还是没忍住剁手，希望 618 不会遭受太多背刺（虽然大多东西都是海鲜市场购入）</p>
-<p><img src="/images/2022/1_2.jpg" alt="弱电柜" title="弱电柜"></p>
-<p>海鲜市场零零散散淘了一个月，前几天终于将配件购买完成。</p>
-<p>在这里对踩过的坑，PVE 直通、调试等做一个记录，避免自己忘记，也希望给看到的网友带来一点帮助。</p>
-<p><img src="/images/2022/1_3.jpg" alt="成品展示" title="成品展示"></p>
-<p><img src="/images/2022/1_4.png" alt="功耗（PVE 打开 ROS+openwrt，空载状态）" title="功耗（PVE 打开 ROS+openwrt，空载状态）"></p>
-<h2 id="配件清单和选购原因"><a href="#配件清单和选购原因" class="headerlink" title="配件清单和选购原因"></a>配件清单和选购原因</h2><p><img src="/images/2022/1_5.jpg" alt="购买备注" title="购买备注"></p>
-<h4 id="机箱（第一个坑）："><a href="#机箱（第一个坑）：" class="headerlink" title="机箱（第一个坑）："></a>机箱（第一个坑）：</h4><p>组装 ITX 或者 MATX 主机，一定要先选好机箱再围绕机箱选购其他配件，我一开始就是没挑好机箱就开始买配件，最后又把还在路上的电源给退了，而且如果把内存条插槽的数量降一降，还可以选择更小的主板，但当时我已经在海鲜市场上买好了主板，于是机箱选起来很蛋疼，花了我很久的时间 </p>
-<p>因为柜子空间为 80cm<em>36cm</em>50cm，所以只能选择长度小于 32 的机箱（还要考虑插头预留长度），所以 pass 掉了很多机箱，备注都在上图，最终选择了 小喆优品B3全铝MATX机箱 蓝色款，326<em>161</em>275</p>
-<p>黑色版还能便宜 40 块，但颜狗还是买了蓝色款。</p>
-<p><img src="/images/2022/1_6.jpg" alt="配合弯头电源线，尺寸完美" title="配合弯头电源线，尺寸完美"></p>
-<h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU:"></a>CPU:</h4><p>我选择了 I5-10400，同为UHD630的核显， i3-10100 应该就够用了，但是还是比较馋 8核16线程的 10400，因为需要挂载的虚拟机比较多，RouterOS + OpenWrt + NAS + HassOS + Windows + CentOS ，这里可以降低需求，8代9代的价格的话，还不如买10代，还可以选择 QSRK 等不限型号的 CPU，进一步压缩价格。<br>（J4125再次传来不堪重负的声音 ）</p>
-<p><img src="/images/2022/1_7.jpg" alt="CPU" title="CPU"></p>
-<h4 id="主板（第二个坑）："><a href="#主板（第二个坑）：" class="headerlink" title="主板（第二个坑）："></a>主板（第二个坑）：</h4><p>本来和 CPU 一样，打算 618 京东买盒装，但因为没忍到 618，海鲜市场淘了华擎 Z490m pro4（本来是在 B460m pro4 、钢铁传奇、B460M-HDV-A之中选一个的，但突然刷到一个没背板的z490，看到4个PCI插槽直接就买了，但实际根本没用上 ，还导致了机箱和电源购买差点翻车）</p>
-<p>这里要重点说一下，500系列因为要兼容 10、11 系的 CPU，导致如果使用 10 系 CPU 的话，很多主板第一个 m.2 插槽是无法使用的，还好没等到 618 ，不然买了 560 我就傻眼了。</p>
-<p>400系主板的话，因为 400 系主板设计原因，基本都是妥协后的产物，根据网上评论还有几个大坑</p>
-<h5 id="1-华硕系主板"><a href="#1-华硕系主板" class="headerlink" title="1.华硕系主板"></a>1.华硕系主板</h5><p>存在核显无法开机的问题，可以通过 BIOS、亮机卡等操作恢复（注意别买到相关型号，要买的话，确定 BIOS 升级可以解锁，并升级 BIOS）</p>
-<p>详见：</p>
-<p><a href="https://tieba.baidu.com/p/6758134915">https://tieba.baidu.com/p/6758134915</a></p>
-<p><a href="https://tieba.baidu.com/p/7668455948">https://tieba.baidu.com/p/7668455948</a></p>
-<h5 id="2-微星系主板"><a href="#2-微星系主板" class="headerlink" title="2.微星系主板"></a>2.微星系主板</h5><p>部分主板存在 pci、m.2 互相冲突，无法插满或降速的问题，当时怕海鲜市场淘主板记错型号，没选微星</p>
-<p>但刚刚搜百度发现问题主要存在360、450、560主板，完全没问题</p>
-<p>详见：</p>
-<p><a href="https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc">https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc</a></p>
-<p><a href="https://www.chiphell.com/thread-2320570-1-1.html">https://www.chiphell.com/thread-2320570-1-1.html</a></p>
-<p><a href="https://tieba.baidu.com/p/6761957926">https://tieba.baidu.com/p/6761957926</a></p>
-<h5 id="3-技嘉系主板"><a href="#3-技嘉系主板" class="headerlink" title="3.技嘉系主板"></a>3.技嘉系主板</h5><p>没有理由，不买</p>
-<h5 id="4-华擎系主板"><a href="#4-华擎系主板" class="headerlink" title="4.华擎系主板"></a>4.华擎系主板</h5><p>B460M RRO4、B460M 钢铁传奇、华擎 B460M-HDV-A、华擎 Z490M RRO4 均无 PCI 、M.2 冲突</p>
-<p>华擎系主板均选择了 M.2 插槽和 SATA 冲突，插入第一个 M.2 会导致禁用一个 SATA 接口，如果是为了 NAS 使用慎选</p>
-<p>详见：</p>
-<p><a href="https://www.asrock.com/mb/Intel/B460M%20Pro4/index.tw.asp#Specification">https://www.asrock.com/mb/Intel/B460M%20Pro4/index.tw.asp#Specification</a></p>
-<h5 id="5-其他"><a href="#5-其他" class="headerlink" title="5.其他"></a>5.其他</h5><p>精力有限，没看</p>
-<h4 id="电源："><a href="#电源：" class="headerlink" title="电源："></a>电源：</h4><p>再重复一遍，一定要先选好机箱再买 主板、电源、散热器</p>
-<p>都怪京东送了一张 -30 的优惠券，买了 ATX 电源，后来发现跟 24*24 的标准板放一起，直接超尺寸，于是路上就被我退了。</p>
-<p>功率算出来满载是 100~150 ，但实在找不到这么小的电源，用 DC 电源、1U 什么的又怕翻车，老老实实京东买了 SFX 铜牌</p>
-<h4 id="硬盘："><a href="#硬盘：" class="headerlink" title="硬盘："></a>硬盘：</h4><p>还是因为怕翻车，买了三星，简单说一下</p>
-<p>970 EVO Plus：速度快、但发热量高、有缓存设计</p>
-<p>980：速度慢一些，性价比高、无缓存设计、发热低</p>
-<p>因为担心 PVE 断电丢配置啥的，买了有缓存的 970  </p>
-<h4 id="网卡："><a href="#网卡：" class="headerlink" title="网卡："></a>网卡：</h4><p>本来想买 I350 的，因为馋 SR-IOV ，但价格实在太高了，还都是寨卡（担心啸叫等问题），最后还是买了 I340 富士通版本<br><img src="/images/2022/1_8.jpg" alt="I340" title="I340"></p>
-<p>软路由常见型号和对比详见：</p>
-<p><a href="https://www.bilibili.com/read/cv15982632">https://www.bilibili.com/read/cv15982632</a></p>
-<p>寨卡分辨等：</p>
-<p><a href="https://www.chiphell.com/thread-2148116-1-1.html">https://www.chiphell.com/thread-2148116-1-1.html</a></p>
-<h4 id="散热器："><a href="#散热器：" class="headerlink" title="散热器："></a>散热器：</h4><p>其实这个是无用需求，玩虚拟机，放柜子里看不到，拷机温度不超过60，买什么 RGB ，我也不知道 :fa-frown-o:</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为重要的配件直接京东某宝，所以的确没有翻车，但其实价格方面没有便宜很多，但因为长年外地出差，担心翻车没法处理，还是没省这个钱。</p>
-<p>没改功耗墙什么的，拷机的时候全核 4.0 只能保持大概 20s（功耗 100w） ，然后就降频到 3.2G（功耗 65w）</p>
-<p>没改 BIOS 的话，空载（PVE 只开 ROS、openwrt ，无网络负载）功耗大概是 30<del>32w，稍稍开了一点节能选项（CPU 开到 C6），待机功率降到 25</del>26w，算是比较满足了</p>
-<p>本来设置了风扇按温度开关，但实际发现根本多不了什么功耗，索性一直转了。</p>
-<p>功耗方面稍稍有点高，主要原因应该还是电源买大了转化率不够高（印象里一般来说电源50%左右转化率最高，DC 电源就更好一点）</p>
-<p>机箱的话还算比较好装，毕竟挺大的，唯一蛋疼的就是装了底部风扇之后，第四个 PCI 插槽被完全挡住了，以后升万兆大概只能拆风扇，或者换 X1 插槽的千兆卡了。</p>
-<p>总体来说比较满意。</p>
-<p>下一篇再写 PVE 的安装 和直通等。</p>
-<p><img src="/images/2022/1_9.jpg" alt="机箱内部" title="机箱内部"></p>
-<p><img src="/images/2022/1_10.jpg" alt="点亮和拷机测试" title="点亮和拷机测试"></p>
-<p><img src="/images/2022/1_11.jpg" alt="娱乐大师跑分" title="娱乐大师跑分"></p>
-<p><img src="/images/2022/1_12.png" alt=" " title=" "></p>
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/05/25/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
