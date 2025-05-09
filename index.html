@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -21,9 +21,9 @@
 
     <meta name="description" content="一座孤岛">
 <meta property="og:type" content="website">
-<meta property="og:title" content="秘密基地">
+<meta property="og:title" content="岛">
 <meta property="og:url" content="https://tty228.github.io/index.html">
-<meta property="og:site_name" content="秘密基地">
+<meta property="og:site_name" content="岛">
 <meta property="og:description" content="一座孤岛">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="tty228">
@@ -37,7 +37,7 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>秘密基地</title>
+<title>岛</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BXH60QJXZ"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-2BXH60QJXZ","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -95,7 +95,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">秘密基地</h1>
+      <h1 class="site-title">岛</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">面朝大海。春暖花开</p>
@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -219,12 +219,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="name" content="岛">
       <meta itemprop="description" content="一座孤岛">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 秘密基地">
+      <meta itemprop="name" content="undefined | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -270,10 +270,9 @@
     
     <div class="post-body" itemprop="articleBody">
           <ul>
-<li><strong>本文基于 ROS 7.18.2 编写</strong></li>
+<li></li>
 </ul>
-<hr>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p> IPv6 日渐普及，最近闲来无事，想着把 RouterOS 上的分流规则改为 IPv4 &amp; IPv6，因为 IPv6 的分流设置和 IPv4 有诸多不同，在此记录一下</p>
+<h2 id="本文基于-ROS-7-18-2-编写"><a href="#本文基于-ROS-7-18-2-编写" class="headerlink" title="本文基于 ROS 7.18.2 编写"></a><strong>本文基于 ROS 7.18.2 编写</strong></h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p> IPv6 日渐普及，最近闲来无事，想着把 RouterOS 上的分流规则改为 IPv4 &amp; IPv6，因为 IPv6 的分流设置和 IPv4 有诸多不同，在此记录一下</p>
 <h3 id="自动更新分流规则的脚本"><a href="#自动更新分流规则的脚本" class="headerlink" title="自动更新分流规则的脚本"></a>自动更新分流规则的脚本</h3><p>左侧 System → Scripts，新建一个用于自动更新分流规则的脚本<br><a href="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/" title="【RouterOS(ROS)】自动更新分流规则 by 2022">【RouterOS(ROS)】自动更新分流规则 by 2022</a>  之前的文章有一个适用于 IPv4 的更新脚本，我们在这里需要做一下修改，使它可以适用于 IPv4 &amp; IPv6<br>这里使用的是已经制作好的 IP 列表文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 下载 IPv4 并重命名</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik/CN dst-path=CN_ipv4</span><br><span class="line"></span><br><span class="line"># 下载 IPv6 并重命名</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik_ipv6/CN dst-path=CN_ipv6</span><br><span class="line"></span><br><span class="line"># 关闭日志输出避免刷屏</span><br><span class="line">/system logging disable 0</span><br><span class="line"></span><br><span class="line">/import file-name=CN_ipv4</span><br><span class="line">:local CNv4 [:len [/ip firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line">/file remove [find name=&quot;CN_ipv4&quot;]</span><br><span class="line"></span><br><span class="line">/import file-name=CN_ipv6</span><br><span class="line">:local CNv6 [:len [/ipv6 firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line">/file remove [find name=&quot;CN_ipv6&quot;]</span><br><span class="line"></span><br><span class="line"># 恢复日志输出</span><br><span class="line">/system logging enable 0</span><br><span class="line">:log info (&quot;CN列表更新: IPv4 &quot; . $CNv4 . &quot;条, IPv6 &quot; . $CNv6 . &quot;条&quot;)</span><br></pre></td></tr></table></figure>
 <hr>
@@ -462,12 +461,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="name" content="岛">
       <meta itemprop="description" content="一座孤岛">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 秘密基地">
+      <meta itemprop="name" content="undefined | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -609,12 +608,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="name" content="岛">
       <meta itemprop="description" content="一座孤岛">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 秘密基地">
+      <meta itemprop="name" content="undefined | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -665,8 +664,10 @@
 <li><p>此处不再详述</p>
 </li>
 <li><p>下载并导入规则</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 下载文件</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik/CN</span><br><span class="line"># 关闭日志输出，避免刷屏</span><br><span class="line">/system logging disable 0</span><br><span class="line"># 载入列表</span><br><span class="line">/import file-name=CN</span><br><span class="line"># 恢复日志输出输出选项</span><br><span class="line">/system logging enable 0</span><br><span class="line"># 查看当前列表数量</span><br><span class="line">:local CN [:len [/ip firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line"># 删除文件</span><br><span class="line">/file remove [find name=&quot;CN&quot;]</span><br><span class="line"># 写入日志</span><br><span class="line">:log info (&quot;CN列表更新:&quot;.&quot;$CN&quot;.&quot;条规则&quot;)</span><br></pre></td></tr></table></figure></li>
+</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 下载文件</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik/CN</span><br><span class="line"># 关闭日志输出，避免刷屏</span><br><span class="line">/system logging disable 0</span><br><span class="line"># 载入列表</span><br><span class="line">/import file-name=CN</span><br><span class="line"># 恢复日志输出输出选项</span><br><span class="line">/system logging enable 0</span><br><span class="line"># 查看当前列表数量</span><br><span class="line">:local CN [:len [/ip firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line"># 删除文件</span><br><span class="line">/file remove [find name=&quot;CN&quot;]</span><br><span class="line"># 写入日志</span><br><span class="line">:log info (&quot;CN列表更新:&quot;.&quot;$CN&quot;.&quot;条规则&quot;)</span><br></pre></td></tr></table></figure>
+
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>
       
     </div>
@@ -701,12 +702,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="name" content="岛">
       <meta itemprop="description" content="一座孤岛">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 秘密基地">
+      <meta itemprop="name" content="undefined | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -759,11 +760,15 @@
 <li><p>ROS 开启 UPNP 后，会自动映射端口，所生成的端口映射可以在 IP - Firewall - NAT 中查询，但 ROS 自动生成的端口映射没有老化时间，需要手动进行删除，或使用脚本进行删除，这里记录一下编写的脚本。</p>
 </li>
 <li><p>upnp 老化（自行设定定时执行）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/ip firewall nat;</span><br><span class="line">:foreach singleRule in=[find where dynamic=yes] do=&#123;</span><br><span class="line"> :if ([:ping [get $singleRule to-addresses] count=2] &lt; 1) do=&#123;</span><br><span class="line">remove $singleRule</span><br><span class="line">:log warning &quot;*** 删除不可用的 upnp 规则 ***&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>拨号后自动修改 dst-address （建议 pppoe 接口绑定拨号脚本，然后在 PPP - Profiles 下添加）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">:global addold</span><br><span class="line">:global addnew</span><br><span class="line">:set addnew [/interface get [/interface find name=&quot;pppoe-out1&quot;] running]</span><br><span class="line">:if ($addnew=true) do=&#123;</span><br><span class="line">:set addold [/ip address get [/ip address find dynamic=yes interface=&quot;pppoe-out1&quot;] address]</span><br><span class="line">:set addold [:pick $addold 0 ([:len $addold ] -3)]</span><br><span class="line">/ip firewall nat set [find dynamic=yes comment ~&quot;^upnp*.&quot;] dst-address=$addold</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/ip firewall nat;</span><br><span class="line">:foreach singleRule in=[find where dynamic=yes] do=&#123;</span><br><span class="line"> :if ([:ping [get $singleRule to-addresses] count=2] &lt; 1) do=&#123;</span><br><span class="line">remove $singleRule</span><br><span class="line">:log warning &quot;*** 删除不可用的 upnp 规则 ***&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>拨号后自动修改 dst-address （建议 pppoe 接口绑定拨号脚本，然后在 PPP - Profiles 下添加）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">:global addold</span><br><span class="line">:global addnew</span><br><span class="line">:set addnew [/interface get [/interface find name=&quot;pppoe-out1&quot;] running]</span><br><span class="line">:if ($addnew=true) do=&#123;</span><br><span class="line">:set addold [/ip address get [/ip address find dynamic=yes interface=&quot;pppoe-out1&quot;] address]</span><br><span class="line">:set addold [:pick $addold 0 ([:len $addold ] -3)]</span><br><span class="line">/ip firewall nat set [find dynamic=yes comment ~&quot;^upnp*.&quot;] dst-address=$addold</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>
       
     </div>
@@ -798,12 +803,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="name" content="岛">
       <meta itemprop="description" content="一座孤岛">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 秘密基地">
+      <meta itemprop="name" content="undefined | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -865,7 +870,7 @@
 <h5 id="2-微星系主板"><a href="#2-微星系主板" class="headerlink" title="2.微星系主板"></a>2.微星系主板</h5><p>部分主板存在 pci、m.2 互相冲突，无法插满或降速的问题，当时怕海鲜市场淘主板记错型号，没选微星</p>
 <p>但刚刚搜百度发现问题主要存在360、450、560主板，完全没问题</p>
 <p>详见：</p>
-<p><a target="_blank" rel="noopener" href="https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc">https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc</a></p>
+<p><a target="_blank" rel="noopener" href="https://nga.178.com/read.php?tid=19129452&forder_by=postdatedesc">https://nga.178.com/read.php?tid=19129452&amp;forder_by=postdatedesc</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.chiphell.com/thread-2320570-1-1.html">https://www.chiphell.com/thread-2320570-1-1.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/6761957926">https://tieba.baidu.com/p/6761957926</a></p>
 <h5 id="3-技嘉系主板"><a href="#3-技嘉系主板" class="headerlink" title="3.技嘉系主板"></a>3.技嘉系主板</h5><p>没有理由，不买</p>
@@ -933,12 +938,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="name" content="岛">
       <meta itemprop="description" content="一座孤岛">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 秘密基地">
+      <meta itemprop="name" content="undefined | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -999,7 +1004,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">制作补丁</span></span><br><span class="line">proxmoxlib_js=&quot;/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js&quot;</span><br><span class="line">Nodes_pm=&quot;/usr/share/perl5/PVE/API2/Nodes.pm&quot;</span><br><span class="line">pvemanagerlib_js=&quot;/usr/share/pve-manager/js/pvemanagerlib.js&quot;</span><br><span class="line">diff -uN $&#123;proxmoxlib_js&#125;bak $&#123;proxmoxlib_js&#125;  &gt; /tmp/proxmoxlib_js.patch</span><br><span class="line">diff -uN $&#123;Nodes_pm&#125;bak $&#123;Nodes_pm&#125;  &gt; /tmp/Nodes_pm.patch</span><br><span class="line">diff -uN $&#123;pvemanagerlib_js&#125;bak $&#123;pvemanagerlib_js&#125;  &gt; /tmp/pvemanagerlib_js.patch</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2022/2_1.png" alt="页面效果"></p>
 <h4 id="4-直通篇"><a href="#4-直通篇" class="headerlink" title="4. 直通篇"></a>4. 直通篇</h4><p>大同小异，只说一些坑和一些配置说明</p>
-<h5 id="1）-x2F-etc-x2F-default-x2F-grub-文件"><a href="#1）-x2F-etc-x2F-default-x2F-grub-文件" class="headerlink" title="1）&#x2F;etc&#x2F;default&#x2F;grub 文件"></a>1）&#x2F;etc&#x2F;default&#x2F;grub 文件</h5><p>据说 video&#x3D;vesafb:off,efifb:off 已经无法使用（大概在7.x版本）<br>需要改成 video&#x3D;vesafb:off video&#x3D;efifb:off<br>如果是 pve-kernel 5.15 可能还需要 video&#x3D;simplefb:off<br>详见：<br><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/pve7-failed-to-mmap-xxxx-xx-xx-x-bar-3-performance-may-be-slow.108129/">https://forum.proxmox.com/threads/pve7-failed-to-mmap-xxxx-xx-xx-x-bar-3-performance-may-be-slow.108129/</a><br><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/gpu-passthrough-not-working-bar-3.60996/">https://forum.proxmox.com/threads/gpu-passthrough-not-working-bar-3.60996/</a></p>
+<h5 id="1）-etc-default-grub-文件"><a href="#1）-etc-default-grub-文件" class="headerlink" title="1）&#x2F;etc&#x2F;default&#x2F;grub 文件"></a>1）&#x2F;etc&#x2F;default&#x2F;grub 文件</h5><p>据说 video&#x3D;vesafb:off,efifb:off 已经无法使用（大概在7.x版本）<br>需要改成 video&#x3D;vesafb:off video&#x3D;efifb:off<br>如果是 pve-kernel 5.15 可能还需要 video&#x3D;simplefb:off<br>详见：<br><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/pve7-failed-to-mmap-xxxx-xx-xx-x-bar-3-performance-may-be-slow.108129/">https://forum.proxmox.com/threads/pve7-failed-to-mmap-xxxx-xx-xx-x-bar-3-performance-may-be-slow.108129/</a><br><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/gpu-passthrough-not-working-bar-3.60996/">https://forum.proxmox.com/threads/gpu-passthrough-not-working-bar-3.60996/</a></p>
 <h5 id="2）直通分组"><a href="#2）直通分组" class="headerlink" title="2）直通分组"></a>2）直通分组</h5><p>如果你的硬件分组像我这样子，即使在 &#x2F;etc&#x2F;default&#x2F;grub 文件中添加了 pcie_acs_override&#x3D;downstream 参数依然无法拆分<br>    00:1f.3  9  Audio device: Intel Corporation Comet Lake PCH cAVS<br>    00:1f.4  9  SMBus: Intel Corporation Comet Lake PCH SMBus Controller<br>    00:1f.5  9  Serial bus controller [0c80]: Intel Corporation Comet Lake PCH SPI Controller<br>    00:1f.6  9  Ethernet controller: Intel Corporation Ethernet Connection (11) I219-V<br>有以下解决方案</p>
 <ul>
 <li>自行编译内核拆分设备</li>
@@ -1019,7 +1024,10 @@
 <li><p>因为开始的时候没有 DP 转接头，我也不确定 DP 接口有没有信号输出，想着干脆做 GVT-G 让群晖和 Windows 都能用上核显算了，于是买了 USB 转 HDMI ，然后手贱觉得 type-c 比较小巧还有弯头可选<br>买回来之后才知道台式机 type-c 不是全功能 C 口，根本无法传输视频信号，并且 type-c 视频输出其实也是走的 DP 输出，对于我当时的情况无济于事<br>所以如果要做 GVT-G 和视频输出，认准这几个字 “<strong>USB外置显卡</strong>“！（因为不确定这玩意解码到底走的 GPU 还是 CPU 或者是外置显卡本身，我最后还是放弃了，还好 DP 信号正常）<br><del>其实还是翻车了，69 的某绿转接头时不时黑屏闪屏，1080P 勉强能用，4K 压根就是残废，DP 接口对线材要求实在太高了</del></p>
 </li>
 <li><p>华擎主板 改显存，增加 GVT-G “显卡” 需要使用这个引导<br><a target="_blank" rel="noopener" href="https://github.com/XDleader555/grub_setup_var">https://github.com/XDleader555/grub_setup_var</a><br>指令参考（我这个主板实测只能改到 512m，1G无法开机，老老实实扣电池）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup_var SaSetup 0xAF 0x3</span><br></pre></td></tr></table></figure></li>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setup_var SaSetup 0xAF 0x3</span><br></pre></td></tr></table></figure>
+<ul>
 <li><p>PVE 7.1&#x2F;7.2 某些内核直通可能存在问题，需要尝试更换内核<br>7.2 版本默认内核貌似无法使用 UPT 模式直通核显（Legacy 模式无影响）<br><strong>据说</strong>正常可用的版本有 5.13.19-4-pve<br>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/822c167d0c3a">https://www.jianshu.com/p/822c167d0c3a</a></p>
 </li>
 <li><p>虚拟机 Windows 关机后 HDMI 无声音<br>原因不明，临时解决方案</p>
@@ -1030,12 +1038,16 @@
 <li>使用 USB 声卡或板载声卡接口输出音频（这是无奈之选，如果要接到电视这种设备，没有 3.5mm 音频口又各种尝试失败的话，VGA+3.5mm 转 HDMI，效果嘛…………:fa-meh-o::fa-meh-o::fa-meh-o::fa-meh-o:）<br><img src="/images/2022/2_5.png"></li>
 </ol>
 <h2 id="其他可能用到的东西"><a href="#其他可能用到的东西" class="headerlink" title="其他可能用到的东西"></a>其他可能用到的东西</h2><ul>
-<li><p>群晖核显驱动状态和硬解状态查询</p>
+<li>群晖核显驱动状态和硬解状态查询</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">ls /dev/dri</span><br><span class="line">cat /sys/kernel/debug/dri/0/i915_frequency_info</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>群晖替换驱动文件（将 i915.ko 文件放入 &#x2F;tmp&#x2F; 文件夹下）</p>
+
+<ul>
+<li>群晖替换驱动文件（将 i915.ko 文件放入 &#x2F;tmp&#x2F; 文件夹下）</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">rm /usr/lib/modules/i915.ko &amp;&amp; cp /tmp/i915.ko /usr/lib/modules/</span><br></pre></td></tr></table></figure>
-</li>
+
+<ul>
 <li><p>让 VM 支持网络唤醒，配合 home assistant 做 htpc 开关机控制<br>参考：<a target="_blank" rel="noopener" href="https://bbs.hassbian.com/thread-16061-1-1.html">https://bbs.hassbian.com/thread-16061-1-1.html</a></p>
 </li>
 <li><p>在虚拟机下控制主板RGB<br>安装 OpenRGB：<a target="_blank" rel="noopener" href="https://openrgb.org/releases.html">https://openrgb.org/releases.html</a><br>直通 USB 中的 RGB 控制器，下载安装开启 OpenRGB（第一次打开需要管理员权限）</p>
@@ -1058,6 +1070,94 @@
 <li>刚装完新机子，拿回家用之后莫名其妙的不稳定，脸黑就死机，重装并升级到 7.2 之后好了，误会是内核的原因，直到前几天想改风扇转速，顺便开节能，死机情况又发生了，才确定是主板开启 C6&#x2F;C7 节能的原因。</li>
 </ol>
 <h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2022/05/25/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tty228">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="岛">
+      <meta itemprop="description" content="一座孤岛">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 岛">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/25/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-25 20:14:11" itemprop="dateCreated datePublished" datetime="2022-05-25T20:14:11+08:00">2022-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-05-10 03:11:05" itemprop="dateModified" datetime="2025-05-10T03:11:05+08:00">2025-05-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
       
     </div>
 
