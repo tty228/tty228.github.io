@@ -297,4 +297,178 @@
         <tag>PVE温度显示</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【RouterOS(ROS)】IPv4 &amp; IPv6 自动分流设置</title>
+    <url>/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&amp;%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
+<li></li>
+<li><p>以下脚本命令基于 ROS 7.18.2，其他版本不一定适用</p>
+</li>
+</ul>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p> IPv6 日渐普及，最近闲来无事，想着把 RouterOS 上的分流规则改为 IPv4 &amp; IPv6，因为 IPv6 的分流设置和 IPv4 有诸多不同，在此记录一下</p>
+<h3 id="自动更新分流规则的脚本"><a href="#自动更新分流规则的脚本" class="headerlink" title="自动更新分流规则的脚本"></a>自动更新分流规则的脚本</h3><p>左侧 System → Scripts，新建一个用于自动更新分流规则的脚本<br><a href="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/" title="【RouterOS(ROS)】自动更新分流规则 by 2022">【RouterOS(ROS)】自动更新分流规则 by 2022</a>  之前的文章有一个适用于 IPv4 的更新脚本，我们在这里需要做一下修改，使它可以适用于 IPv4 &amp; IPv6<br>这里使用的是已经制作好的 IP 列表文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 下载 IPv4 并重命名</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik/CN dst-path=CN_ipv4</span><br><span class="line"></span><br><span class="line"># 下载 IPv6 并重命名</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik_ipv6/CN dst-path=CN_ipv6</span><br><span class="line"></span><br><span class="line"># 关闭日志输出</span><br><span class="line">/system logging disable 0</span><br><span class="line"></span><br><span class="line">/import file-name=CN_ipv4</span><br><span class="line">:local CNv4 [:len [/ip firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line">/file remove [find name=&quot;CN_ipv4&quot;]</span><br><span class="line"></span><br><span class="line">/import file-name=CN_ipv6</span><br><span class="line">:local CNv6 [:len [/ipv6 firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line">/file remove [find name=&quot;CN_ipv6&quot;]</span><br><span class="line"></span><br><span class="line"># 恢复日志并记录</span><br><span class="line">/system logging enable 0</span><br><span class="line">:log info (&quot;CN列表更新: IPv4 &quot; . $CNv4 . &quot;条, IPv6 &quot; . $CNv6 . &quot;条&quot;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p>成功的话应该能在防火墙和日志中看到如下内容：<br><img src="/images/2025/1_1.png" alt="脚本运行状态"></p>
+<h3 id="路由表设置"><a href="#路由表设置" class="headerlink" title="路由表设置"></a>路由表设置</h3><p>左侧 Routing → Tables，新建一个路由表，名字自己随便写，我这里使用的是 openwrt，路由表用于防火墙标记和指定流量出口</p>
+<ul>
+<li>FIB： 勾选<br><img src="/images/2025/1_2.png" alt="路由表"></li>
+</ul>
+<h4 id="IPv4-路由设置："><a href="#IPv4-路由设置：" class="headerlink" title="IPv4 路由设置："></a>IPv4 路由设置：</h4><p>左侧菜单 IP → Routes，新建一条路由规则：<br><img src="/images/2025/1_3.png" alt="IPv4 路由表"></p>
+<ul>
+<li>Dst.Address：0.0.0.0&#x2F;0</li>
+<li>Gateway：旁路网关IP地址</li>
+<li>Distance：2 # (建议使用大于1的低优先级)</li>
+<li>Routing Table： 选中刚刚新建的路由表，例如 openwrt<br>点击Apply → OK，保存提交。<br>使用命令导入：<br><code>/ip route add dst-address=0.0.0.0/0 gateway=192.168.1.250 distance=2 routing-table=openwrt</code></li>
+</ul>
+<h4 id="IPv6-路由设置："><a href="#IPv6-路由设置：" class="headerlink" title="IPv6 路由设置："></a>IPv6 路由设置：</h4><p>左侧菜单 IPv6 → Routes，新建一条路由规则：<br><img src="/images/2025/1_4.png" alt="IPv6 路由表"></p>
+<ul>
+<li>Dst.Address：::&#x2F;0</li>
+<li>Gateway： 旁路网关的本地链路 IPv6 地址 ，例如 <code>fe80::be24:11ff:fe79:7afe%bridge1</code>  [1]</li>
+<li>Distance：2 # (建议使用大于1的低优先级)</li>
+<li>Routing Table： 选中刚刚新建的路由表，例如 openwrt<br>点击Apply → OK，保存提交。<br>使用命令导入：<br><code>/ipv6 route add dst-address=::/0 gateway=fe80::be24:11ff:fe79:7afe%bridge1 immediate-gateway=fe80::be24:11ff:fe79:7afe%bridge1 distance=2 routing-table=openwrt</code></li>
+</ul>
+<p>注：如果 Gateway 填写的是本地链路 IPv6 地址，如 fe80:: ，则需要在地址后面加上接口名称或者网口名称，如 bridge1，则为 <code>fe80::be24:11ff:fe79:7afe%bridge1</code> ，如果使用的是 ULA 地址，直接在 Gateway 处填入 ULA 地址即可，无需接口名称</p>
+<h3 id="防火墙设置"><a href="#防火墙设置" class="headerlink" title="防火墙设置"></a>防火墙设置</h3><h4 id="IPv4-防火墙规则"><a href="#IPv4-防火墙规则" class="headerlink" title="IPv4 防火墙规则"></a>IPv4 防火墙规则</h4><h5 id="跳过旁路网关流量"><a href="#跳过旁路网关流量" class="headerlink" title="跳过旁路网关流量"></a>跳过旁路网关流量</h5><p>首先我们需要对旁路网关发送来的流量进行特殊处理，使其跳过流量标记，避免路由环路<br>左侧 IP → Firewall → Mangle，新建一条 prerouting 规则<br><img src="/images/2025/1_5.png" alt="IPv6 路由表"></p>
+<blockquote>
+<p>General</p>
+</blockquote>
+<ul>
+<li>Src.Address： 填写旁路网关的IP地址</li>
+<li>In.Interface： 选择桥接口名字或者网口名称，如 bridge1、ether2</li>
+</ul>
+<blockquote>
+<p>Advanced</p>
+</blockquote>
+<ul>
+<li>Src.MAC Address：  填写旁路网关流量出口的 MAC 地址，和 Src.Address 二选一即可。</li>
+</ul>
+<blockquote>
+<p>Action</p>
+</blockquote>
+<ul>
+<li>Action： Accept （表示通过和跳过下列的防火墙规则）</li>
+</ul>
+<h5 id="国外流量标记"><a href="#国外流量标记" class="headerlink" title="国外流量标记"></a>国外流量标记</h5><p>再新建一条 prerouting 规则用于流量标记<br><img src="/images/2025/1_6.png" alt="IPv4 防火墙规则"></p>
+<blockquote>
+<p>General</p>
+</blockquote>
+<ul>
+<li>Dst.Address List： 目标地址列表，选择 CN 和 前面的空白方块 [!] ，表示目标地址不在 CN 列表中时才命中规则</li>
+<li>Src.Address List： 源地址列表，如果希望局域网内只有部分设备使用这个自动分流规则，那么可以自己去 Address List 添加一个列表，留空时为所有设备</li>
+</ul>
+<blockquote>
+<p>Extra</p>
+</blockquote>
+<ul>
+<li>Dst.Address Type： 下拉选择 local，然后点击前面空白方块为 [!] ，即目标地址不属于局域网地址时才命中规则</li>
+</ul>
+<blockquote>
+<p>Action</p>
+</blockquote>
+<ul>
+<li>Action：  makr routing  重新标记路由</li>
+<li>New Routing Mark： 选择之前添加的路由表</li>
+<li>Passthrough： 如果下方还需要对这条流量做别的处理 ，则需要勾选</li>
+</ul>
+<p>使用命令导入：</p>
+<blockquote>
+<p>my_device 为防火墙自定义 Address List</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ip firewall mangle</span><br><span class="line">add action=accept chain=prerouting in-interface=bridge1 src-address=\</span><br><span class="line">    192.168.1.250</span><br><span class="line">add action=mark-routing chain=prerouting dst-address-list=!CN \</span><br><span class="line">    dst-address-type=!local new-routing-mark=openwrt src-address-list=\</span><br><span class="line">    my_device</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>必须保证”跳过流量标记”的防火墙规则在”流量标记”规则的上方</li>
+<li>如果需要将 DNS 修改为旁路网关，需检查 NAT 规则，确保未开启 DNS 劫持，如果使用 DHCP 指定分配 DNS 则不需要关闭劫持规则</li>
+<li>检查 IP 伪装规则，如果使用的是 WAN 接口伪装，需要修改为整个局域网子网段，否则需要在旁路网关防火墙处设置 IP 伪装规则<br>（<em>或参考文末”其他设置”中的处理方案</em>）<br><img src="/images/2025/1_7.png" alt="IPv4 防火墙规则"></li>
+</ol>
+<h4 id="IPv6-防火墙规则"><a href="#IPv6-防火墙规则" class="headerlink" title="IPv6 防火墙规则"></a>IPv6 防火墙规则</h4><h5 id="跳过旁路网关流量-1"><a href="#跳过旁路网关流量-1" class="headerlink" title="跳过旁路网关流量"></a>跳过旁路网关流量</h5><p>左侧 IP → Firewall → Mangle，新建一条 prerouting 规则，IPv6 通常为动态公网单播地址，无法使用 Src.Address，需要改为 MAC 地址 Src.MAC Address</p>
+<blockquote>
+<p>General</p>
+</blockquote>
+<ul>
+<li>In.Interface： 选择桥接口名字或者网口名称，如 bridge1、ether2</li>
+</ul>
+<blockquote>
+<p>Advanced</p>
+</blockquote>
+<ul>
+<li>Src.MAC Address：  填写旁路网关流量出口的 MAC 地址</li>
+</ul>
+<blockquote>
+<p>Action</p>
+</blockquote>
+<ul>
+<li>Action： Accept （表示通过和跳过下列的防火墙规则）</li>
+</ul>
+<h5 id="跳过-ICMPv6-ND-和-DHCPv6-的流量"><a href="#跳过-ICMPv6-ND-和-DHCPv6-的流量" class="headerlink" title="跳过 ICMPv6 (ND) 和 DHCPv6 的流量"></a>跳过 ICMPv6 (ND) 和 DHCPv6 的流量</h5><p>IPv6 防火墙规则和 IPv4 有一些区别，除了”跳过流量标记”和”流量标记”外，还需要跳过 ICMPv6 (ND) 和 DHCPv6 的流量，否则会造成 IPv6 网络异常<br>ICMPv6(ND)： protocol&#x3D;58 (icmpv6)<br>DHCPv6：dst-port&#x3D;546-547 protocol&#x3D;udp<br><img src="/images/2025/1_8.png" alt="IPv6 防火墙规则"></p>
+<h5 id="国外流量标记-1"><a href="#国外流量标记-1" class="headerlink" title="国外流量标记"></a>国外流量标记</h5><p>IPV6 通常不需要勾选 [!]local，因为流量都是公网单播地址（GUA）<br>同样的原因，IPv6 防火墙无法使用 Src.Address List，如果并非全局分流，需要每个设备一条规则，使用 MAC 地址<br><img src="/images/2025/1_9.png" alt="IPv6 防火墙规则"></p>
+<blockquote>
+<p>General</p>
+</blockquote>
+<ul>
+<li>Dst.Address List： 目标地址列表，选择 CN 和 前面的空白方块 [!] ，表示目标地址不在 CN 列表中时才命中规则</li>
+</ul>
+<blockquote>
+<p>Advanced</p>
+</blockquote>
+<ul>
+<li>Src.MAC Address：  填写需要分流设备的 MAC 地址</li>
+</ul>
+<blockquote>
+<p>Action</p>
+</blockquote>
+<ul>
+<li>Action：  makr routing  重新标记路由</li>
+<li>New Routing Mark： 选择之前添加的路由表</li>
+<li>Passthrough： 如果下方还需要对这条流量做别的处理 ，则需要勾选</li>
+</ul>
+<p>使用命令导入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ipv6 firewall mangle</span><br><span class="line">add action=accept chain=prerouting in-interface=bridge1 src-mac-address=\</span><br><span class="line">    AA:AA:AA:AA:AA:AA</span><br><span class="line">add action=accept chain=prerouting comment=&quot;Bypass ICMPv6 (ND)&quot; protocol=\</span><br><span class="line">    icmpv6</span><br><span class="line">add action=accept chain=prerouting comment=&quot;Bypass DHCPv6&quot; dst-port=546-547 \</span><br><span class="line">    protocol=udp</span><br><span class="line">add action=mark-routing chain=prerouting comment=&quot;My Device&quot; \</span><br><span class="line">    dst-address-list=!CN new-routing-mark=openwrt \</span><br><span class="line">    src-mac-address=BB:BB:BB:BB:BB:BB</span><br></pre></td></tr></table></figure>
+<p>注：</p>
+<ol>
+<li>必须保证”跳过流量标记”的防火墙规则在”流量标记”规则的上方</li>
+<li>如果需要将 DNS 修改为旁路网关，需检查 NAT 规则，确保未开启 DNS 劫持，如果使用 ND 指定分配 DNS 则不需要关闭劫持规则</li>
+<li>在能过获得前缀的情况下，IPv6 通常不需要开启 IP 伪装，如果错误的开启 IP 伪装，会导致外部服务器只能获取到网关 IPv6 地址，而非真实的设备 IPv6 地址<br><img src="/images/2025/1_10.png" alt="IPv6 防火墙规则"></li>
+</ol>
+<h4 id="兼容安卓残疾-IPv6"><a href="#兼容安卓残疾-IPv6" class="headerlink" title="兼容安卓残疾 IPv6"></a>兼容安卓残疾 IPv6</h4><h5 id="IPv6-ND-设置"><a href="#IPv6-ND-设置" class="headerlink" title="IPv6 ND 设置"></a>IPv6 ND 设置</h5><p>总所周知，安卓的 IPv6 网络功能愚蠢又弱智，既不支持 DHCPv6，也不能指定 DNS 地址，也不支持网关宣告的 fe80 本地链路 DNS 地址，只能使用动态的 GUA（或者需要在本地链路注明接口名称？），这给分流带来了很多不方便，所以如果你使用的是安卓设备，又不想通过防火墙拒绝 ICMPv6 (ND) 包来禁用安卓设备的 IPv6 功能的话，建议把 ND 设置改为如下<br><img src="/images/2025/1_11.png" alt="IPv6 ND 设置"></p>
+<ul>
+<li>删除 DNS 地址信息</li>
+<li>在 ND 信息中不包含 DNS 地址<br>这样可以使安卓设备仅使用 IPv4 DNS 地址</li>
+</ul>
+<h5 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h5><p>其实经过上面的设置之后，基本上已经可以正常上网了，但如果 IPv6 防火墙开启了丢弃无效的转发包，部分安卓设备会因为路由标记非对称路由(?)，造成 TCP 握手未完成且包被丢弃，造成 IPv6 无法上网<br>有以下几种解决方案：</p>
+<ol>
+<li>直接关闭”丢弃无效的转发包”规则<br><img src="/images/2025/1_12.png" alt="IPv6 ND 设置"></li>
+<li>新增一条 IPv6 伪装规则，将分流的流量出口地址伪装为 RouterOS 发出，使回程流量正常响应（反正本来就是代理流量，无所谓公网和无法嗅探真实地址）<br><img src="/images/2025/1_13.png" alt="IPv6 防火墙设置"></li>
+</ol>
+<blockquote>
+<p>General</p>
+</blockquote>
+<ul>
+<li>Dst.Address List： 目标地址列表，选择 CN 和 前面的空白方块 [!] ，表示目标地址不在 CN 列表中时才命中规则</li>
+<li>Routing Mark： 选择之前添加的路由表，表示仅处理已被标记的包</li>
+</ul>
+<blockquote>
+<p>Action</p>
+</blockquote>
+<ul>
+<li>Action：  masquerade  将源地址从 OpenWrt 伪装为 RouterOS，以正常响应回程包</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ipv6 firewall nat</span><br><span class="line">add action=masquerade chain=srcnat comment=&quot;defconf: masquerade IPv6&quot; \</span><br><span class="line">    dst-address-list=!CN routing-mark=openwrt</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>IPv4 其实也可以这样处理<br><img src="/images/2025/1_14.png" alt="IPv4 防火墙设置"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>RouterOS</category>
+      </categories>
+      <tags>
+        <tag>RouterOS</tag>
+        <tag>ROS</tag>
+        <tag>ROS 分流</tag>
+      </tags>
+  </entry>
 </search>
