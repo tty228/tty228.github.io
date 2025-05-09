@@ -1,139 +1,295 @@
 <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-<html lang="zh-Hans">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"tty228.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"gitalk":{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liuEGNaGzAjxTgT1","client_secret":"28433f2a632140b599f2098c5ce8c9d879a07cd3","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN"}}},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="因为新购入了主机，需要重新调试 PVE ，在这里做一些记录 PVE初装1. BIOS设置1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间2）确认开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）">
+<meta property="og:url" content="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/index.html">
+<meta property="og:site_name" content="秘密基地">
+<meta property="og:description" content="因为新购入了主机，需要重新调试 PVE ，在这里做一些记录 PVE初装1. BIOS设置1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间2）确认开">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tty228.github.io/images/2022/2_1.png">
+<meta property="og:image" content="https://tty228.github.io/images/2022/2_3.png">
+<meta property="og:image" content="https://tty228.github.io/images/2022/2_2.png">
+<meta property="og:image" content="https://tty228.github.io/images/2022/2_4.png">
+<meta property="og:image" content="https://tty228.github.io/images/2022/2_5.png">
+<meta property="article:published_time" content="2022-05-25T12:39:20.429Z">
+<meta property="article:modified_time" content="2023-06-08T16:06:08.348Z">
+<meta property="article:author" content="tty228">
+<meta property="article:tag" content="Proxmox VE">
+<meta property="article:tag" content="PVE">
+<meta property="article:tag" content="PVE设置">
+<meta property="article:tag" content="PVE核显直通">
+<meta property="article:tag" content="核显直通">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tty228.github.io/images/2022/2_1.png">
+
+
+<link rel="canonical" href="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/","path":"2022/05/25/ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置）/","title":"ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置） | 秘密基地</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BXH60QJXZ"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-2BXH60QJXZ","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
 
-    <head>
-	<meta name="baidu-site-verification" content="code-cY72tskGWe" />
-	<meta name="google-site-verification" content="Wj0ajBajdw5MJxhIc2jBxSek0AFbcABDq9T8zSLcMo0" />
-      <meta charset="utf-8" />
-       
-      <meta name="keywords" content="生活,记录,代码,博客" />
-       
-      <meta name="description" content="一座孤岛" />
-      
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
-      />
-      <title>ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置） |  秘密基地</title>
-  <meta name="generator" content="hexo-theme-ayer">
-      
-      <link rel="shortcut icon" href="/favicon.ico" />
-       
-<link rel="stylesheet" href="/dist/main.css">
-
-      
-<link rel="stylesheet" href="/css/fonts/remixicon.css">
-
-      
-<link rel="stylesheet" href="/css/custom.css">
- 
-      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
-       
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2BXH60QJXZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-2BXH60QJXZ');
-</script>
-
- 
-<script>
-var _hmt = _hmt || [];
-(function() {
-	var hm = document.createElement("script");
-	hm.src = "https://hm.baidu.com/hm.js?73d4ba0bedea138bbf526970ed143750";
-	var s = document.getElementsByTagName("script")[0]; 
-	s.parentNode.insertBefore(hm, s);
-})();
-</script>
+  <script src="/js/third-party/analytics/baidu-analytics.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?73d4ba0bedea138bbf526970ed143750"></script>
 
 
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
-      />
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
-
-      <!-- mermaid -->
-      
-      <style>
-        .swal2-styled.swal2-confirm {
-          font-size: 1.6rem;
-        }
-      </style>
-    </head>
-  </html>
-</html>
 
 
-<body>
-  <div id="app">
-    
-      
-    <main class="content on">
-      <section class="outer">
-  <article
-  id="post-ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）
-</h1>
- 
 
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/" class="article-date">
-  <time datetime="2022-05-25T12:39:20.429Z" itemprop="datePublished">2022-05-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Proxmox-VE/">Proxmox VE</a>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">秘密基地</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">面朝大海。春暖花开</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-关于我"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于我</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
   
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.8k</span>
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PVE%E5%88%9D%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">PVE初装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-BIOS%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. BIOS设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-PVE%E5%AE%89%E8%A3%85"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. PVE安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-PVE%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. PVE设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%EF%BC%89%E5%88%A0%E9%99%A4-local-lvm-%E5%88%86%E5%8C%BA%EF%BC%8C%E5%8F%AA%E7%95%99%E4%B8%8B-local-%E5%88%86%E5%8C%BA"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1）删除 local-lvm 分区，只留下 local 分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%EF%BC%89%E6%8D%A2%E6%BA%90%E3%80%81%E5%85%B3%E9%97%AD%E8%AE%A2%E9%98%85%E3%80%81%E9%A6%96%E9%A1%B5%E6%B8%A9%E5%BA%A6%E6%8F%90%E7%A4%BA%E7%AD%89%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2）换源、关闭订阅、首页温度提示等操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%9B%B4%E9%80%9A%E7%AF%87"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 直通篇</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%EF%BC%89-x2F-etc-x2F-default-x2F-grub-%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">1）&#x2F;etc&#x2F;default&#x2F;grub 文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%EF%BC%89%E7%9B%B4%E9%80%9A%E5%88%86%E7%BB%84"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">2）直通分组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%EF%BC%89%E7%9B%B4%E9%80%9A%E8%AE%BE%E5%A4%87%E6%95%B0%E9%87%8F"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">3）直通设备数量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4%EF%BC%89%E6%97%A0%E6%B3%95%E5%BC%80%E6%9C%BA%E3%80%81%E9%A9%B1%E5%8A%A8%E8%A3%85%E4%B8%8A%E4%BA%86%E4%B9%9F%E6%B2%A1%E6%9C%89%E7%94%BB%E9%9D%A2"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">4）无法开机、驱动装上了也没有画面</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%88%AB%E7%9A%84%E5%9D%91"><span class="nav-number">2.</span> <span class="nav-text">一些别的坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%AF%E8%83%BD%E7%94%A8%E5%88%B0%E7%9A%84%E4%B8%9C%E8%A5%BF"><span class="nav-number">3.</span> <span class="nav-text">其他可能用到的东西</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%8E%86%E8%BF%87%E7%9A%84%E6%AD%BB%E6%9C%BA%E7%8A%B6%E5%86%B5%E8%AE%B0%E5%BD%95"><span class="nav-number">4.</span> <span class="nav-text">经历过的死机状况记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#End"><span class="nav-number">4.1.</span> <span class="nav-text">End</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tty228</p>
+  <div class="site-description" itemprop="description">一座孤岛</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tty228">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘密基地">
+      <meta itemprop="description" content="一座孤岛">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置） | 秘密基地">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-25 20:39:20" itemprop="dateCreated datePublished" datetime="2022-05-25T20:39:20+08:00">2022-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-09 00:06:08" itemprop="dateModified" datetime="2023-06-09T00:06:08+08:00">2023-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Proxmox-VE/" itemprop="url" rel="index"><span itemprop="name">Proxmox VE</span></a>
         </span>
     </span>
 
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">11 min</span>
-        </span>
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
     </span>
 </div>
- 
-    </div>
-      
-    <div class="tocbot"></div>
 
+        </div>
+      </header>
 
-
-
-  
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>因为新购入了主机，需要重新调试 PVE ，在这里做一些记录</p>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>因为新购入了主机，需要重新调试 PVE ，在这里做一些记录</p>
 <h2 id="PVE初装"><a href="#PVE初装" class="headerlink" title="PVE初装"></a>PVE初装</h2><h4 id="1-BIOS设置"><a href="#1-BIOS设置" class="headerlink" title="1. BIOS设置"></a>1. BIOS设置</h4><p>1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间<br>PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间<br>2）确认开启虚拟化<br>根据需要确认开启或关闭 CSM 、CPU 节能、板载声卡、来电自启动等选项（CPU C6&#x2F;C7&#x2F;C10 等节能请确认硬件支持再开启，以免造成低负载随机死机）</p>
 <h4 id="2-PVE安装"><a href="#2-PVE安装" class="headerlink" title="2. PVE安装"></a>2. PVE安装</h4><p>官网下载镜像：<a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads">https://www.proxmox.com/en/downloads</a><br>使用 U盘刻录软件刻录即可，我这里使用的是 balenaEtcher<br>为了方便设置管理口，只插上一根自动分配IP的网线到要要设置的管理口上，IP 可以在安装界面上更改，主要是为了分辨网口编号<br>（尽量不要使用板载网卡，有些主板官方内核板载网卡、板载声卡等设备无法拆分，会导致后续声卡直通时出问题，我这里从 I340T4 里面选了一个口作为管理口使用）</p>
 <h4 id="3-PVE设置"><a href="#3-PVE设置" class="headerlink" title="3. PVE设置"></a>3. PVE设置</h4><h5 id="1）删除-local-lvm-分区，只留下-local-分区"><a href="#1）删除-local-lvm-分区，只留下-local-分区" class="headerlink" title="1）删除 local-lvm 分区，只留下 local 分区"></a>1）删除 local-lvm 分区，只留下 local 分区</h5><p>避免空间浪费，而且 PVE 首页上显示的空间剩余指的是 local 分区，我使用 J4125 的时候就发生过一次 local-lvm 塞满造成的 IO-err，推荐新装 PVE 时进行设置，不然还要备份还原虚拟机，比较麻烦</p>
@@ -207,522 +363,98 @@ var _hmt = _hmt || [];
 <li>J4125 的时候，USB 口不够用，接了两个 USB 集线器，集线器上插超过 3 个 USB 设备直通给 Windows，一小时之内绝对会 boom，至今不知道是那块主板的问题还是 PVE 的问题（后来一直插着 3 个 USB，再也没遇到过死机现象，升级 PVE 后也没测试，没深究原因）</li>
 <li>刚装完新机子，拿回家用之后莫名其妙的不稳定，脸黑就死机，重装并升级到 7.2 之后好了，误会是内核的原因，直到前几天想改风扇转速，顺便开节能，死机情况又发生了，才确定是主板开启 C6&#x2F;C7 节能的原因。</li>
 </ol>
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3> 
-      <!-- reward -->
-      
-      <div id="reword-out">
-        <div id="reward-btn">
-          Donate
-        </div>
-      </div>
-      
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>
     </div>
+
+    
+    
     
 
-    <!-- copyright -->
-    
-    <div class="declare">
-      <ul class="post-copyright">
-        <li>
-          <i class="ri-copyright-line"></i>
-          <strong>Copyright： </strong>
-          
-          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
-          
-        </li>
-      </ul>
-    </div>
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Proxmox-VE/" rel="tag"># Proxmox VE</a>
+              <a href="/tags/PVE/" rel="tag"># PVE</a>
+              <a href="/tags/PVE%E8%AE%BE%E7%BD%AE/" rel="tag"># PVE设置</a>
+              <a href="/tags/PVE%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A/" rel="tag"># PVE核显直通</a>
+              <a href="/tags/%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A/" rel="tag"># 核显直通</a>
+          </div>
 
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/" alt="微信分享二维码">
-    </div>
-</div>
+        
 
-<div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PVE/" rel="tag">PVE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PVE%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A/" rel="tag">PVE核显直通</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PVE%E8%AE%BE%E7%BD%AE/" rel="tag">PVE设置</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Proxmox-VE/" rel="tag">Proxmox VE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A/" rel="tag">核显直通</a></li></ul>
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%B8%80%EF%BC%88%E8%B4%AD%E4%B9%B0%E5%8F%8A%E7%BB%84%E8%A3%85%E7%AF%87-%E5%8D%81%E4%BB%A3%E4%B8%BB%E6%9C%BA10400%EF%BC%89/" rel="prev" title="ALL in one 记录一（购买及组装篇-十代主机10400）">
+                  <i class="fa fa-angle-left"></i> ALL in one 记录一（购买及组装篇-十代主机10400）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91UPNP%E8%AE%BE%E7%BD%AE-%E8%87%AA%E5%8A%A8%E8%80%81%E5%8C%96%E5%8F%8A%E9%87%8D%E6%8B%A8%E5%90%8E%E4%BF%AE%E6%94%B9IP/" rel="next" title="【RouterOS(ROS)】UPNP 设置 - 自动老化及重拨后修改 IP">
+                  【RouterOS(ROS)】UPNP 设置 - 自动老化及重拨后修改 IP <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">tty228</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
-   
-  <nav class="article-nav">
-    
-      <a href="/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91UPNP%E8%AE%BE%E7%BD%AE-%E8%87%AA%E5%8A%A8%E8%80%81%E5%8C%96%E5%8F%8A%E9%87%8D%E6%8B%A8%E5%90%8E%E4%BF%AE%E6%94%B9IP/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            【RouterOS(ROS)】UPNP 设置 - 自动老化及重拨后修改 IP
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%B8%80%EF%BC%88%E8%B4%AD%E4%B9%B0%E5%8F%8A%E7%BB%84%E8%A3%85%E7%AF%87-%E5%8D%81%E4%BB%A3%E4%B8%BB%E6%9C%BA10400%EF%BC%89/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">ALL in one 记录一（购买及组装篇-十代主机10400）</div>
-      </a>
-    
-  </nav>
+    </div>
+  </footer>
 
-   
-<!-- valine评论 -->
-<div id="vcomments-box">
-  <div id="vcomments"></div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
-<script>
-  new Valine({
-    el: "#vcomments",
-    app_id: "r02ulsFP3IjbGAh6eXAr4BOc-gzGzoHsz",
-    app_key: "2r93pIRYx4p5fVNEcSbxBOAH",
-    path: window.location.pathname,
-    avatar: "monsterid",
-    placeholder: "给我的文章加点评论吧~",
-    recordIP: true,
-  });
-  const infoEle = document.querySelector("#vcomments .info");
-  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-    infoEle.childNodes.forEach(function (item) {
-      item.parentNode.removeChild(item);
-    });
-  }
-</script>
-<style>
-  #vcomments-box {
-    padding: 5px 30px;
-  }
-
-  @media screen and (max-width: 800px) {
-    #vcomments-box {
-      padding: 5px 0px;
-    }
-  }
-
-  #vcomments-box #vcomments {
-    background-color: #fff;
-  }
-
-  .v .vlist .vcard .vh {
-    padding-right: 20px;
-  }
-
-  .v .vlist .vcard {
-    padding-left: 10px;
-  }
-</style>
-
- 
-   
   
-   
-    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
-    <div id="twikoo" class="twikoo"></div>
-    <script>
-        twikoo.init({
-            envId: ""
-        })
-    </script>
- 
-</article>
-
-</section>
-      <footer class="footer">
-  <div class="outer">
-    <ul>
-      <li>
-        Copyrights &copy;
-        2022-2025
-        <i class="ri-heart-fill heart_icon"></i> tty228
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-        
-        <span>
-  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
-  <span class="division">|</span>
-  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
-</span>
-        
-      </li>
-    </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      <li>
-        <!-- cnzz统计 -->
-        
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
-      </li>
-    </ul>
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-</footer>    
-    </main>
-    <div class="float_btns">
-      <div class="totop" id="totop">
-  <i class="ri-arrow-up-line"></i>
-</div>
-
-<div class="todark" id="todark">
-  <i class="ri-moon-line"></i>
-</div>
-
-    </div>
-    <aside class="sidebar on">
-      <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-  <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="秘密基地"></a>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
   </div>
-  
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">主页</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">归档</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/categories">分类</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/tags">标签</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/friends">友链</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
-    </li>
-    
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      
-      <a class="nav-item-link nav-item-search"  title="Search">
-        <i class="ri-search-line"></i>
-      </a>
-      
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-    </aside>
-    <div id="mask"></div>
 
-<!-- #reward -->
-<div id="reward">
-  <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
-  <div class="reward-box">
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/alipay.jpg">
-      <span class="reward-type">支付宝</span>
-    </div>
-    
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/wechat.jpg">
-      <span class="reward-type">微信</span>
-    </div>
-    
-  </div>
-</div>
-    
-<script src="/js/jquery-3.6.0.min.js"></script>
- 
-<script src="/js/lazyload.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-<!-- Tocbot -->
- 
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: ".tocbot",
-    contentSelector: ".article-entry",
-    headingSelector: "h1, h2, h3, h4, h5, h6",
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: "main",
-    positionFixedSelector: ".tocbot",
-    positionFixedClass: "is-position-fixed",
-    fixedSidebarOffset: "auto",
-  });
-</script>
-
-<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
-<link
-  rel="stylesheet"
-  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
-/>
-<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
-
-<script src="/dist/main.js"></script>
-
-<!-- ImageViewer -->
- <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
-<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
-<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
-
-<script>
-    function viewer_init() {
-        let pswpElement = document.querySelectorAll('.pswp')[0];
-        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
-
-        $imgArr.forEach(($em, i) => {
-            $em.onclick = () => {
-                // slider展开状态
-                // todo: 这样不好，后面改成状态
-                if (document.querySelector('.left-col.show')) return
-                let items = []
-                $imgArr.forEach(($em2, i2) => {
-                    let img = $em2.getAttribute('data-idx', i2)
-                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
-                    let title = $em2.getAttribute('alt')
-                    // 获得原图尺寸
-                    const image = new Image()
-                    image.src = src
-                    items.push({
-                        src: src,
-                        w: image.width || $em2.width,
-                        h: image.height || $em2.height,
-                        title: title
-                    })
-                })
-                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
-                    index: parseInt(i)
-                });
-                gallery.init()
-            }
-        })
-    }
-    viewer_init()
-</script> 
-<!-- MathJax -->
-
-<!-- Katex -->
-
-<!-- busuanzi  -->
- 
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
- 
-<!-- ClickLove -->
-
-<!-- ClickBoom1 -->
-
-<!-- ClickBoom2 -->
-
-<!-- CodeCopy -->
- 
-<link rel="stylesheet" href="/css/clipboard.css">
- <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('ri-file-copy-2-line');
-        $icon.addClass('ri-checkbox-circle-line');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('ri-checkbox-circle-line');
-          $icon.addClass('ri-file-copy-2-line');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('ri-file-copy-2-line');
-        $icon.addClass('ri-time-line');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('ri-time-line');
-          $icon.addClass('ri-file-copy-2-line');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
-</script>
- 
-<!-- CanvasBackground -->
-
-<script>
-  if (window.mermaid) {
-    mermaid.initialize({ theme: "forest" });
-  }
-</script>
-
-
-    
-    
-
-  </div>
 </body>
-
 </html>
