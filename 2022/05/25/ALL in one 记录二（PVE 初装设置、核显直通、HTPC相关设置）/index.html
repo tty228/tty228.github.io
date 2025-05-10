@@ -22,7 +22,7 @@
     <meta name="description" content="因为新购入了主机，需要重新调试 PVE ，在这里做一些记录 PVE初装1. BIOS设置1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间2）确认开">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）">
-<meta property="og:url" content="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/index.html">
+<meta property="og:url" content="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE%E3%80%81%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A%E3%80%81HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/index.html">
 <meta property="og:site_name" content="匆匆那年">
 <meta property="og:description" content="因为新购入了主机，需要重新调试 PVE ，在这里做一些记录 PVE初装1. BIOS设置1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间2）确认开">
 <meta property="og:locale" content="zh_CN">
@@ -43,10 +43,10 @@
 <meta name="twitter:image" content="https://tty228.github.io/images/2022/2_1.png">
 
 
-<link rel="canonical" href="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/">
+<link rel="canonical" href="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE%E3%80%81%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A%E3%80%81HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/","path":"2022/05/25/ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置）/","title":"ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置）"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE%E3%80%81%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A%E3%80%81HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/","path":"2022/05/25/ALL in one 记录二（PVE 初装设置、核显直通、HTPC相关设置）/","title":"ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>ALL in one 记录二（PVE 初装设置&核显直通&HTPC相关设置） | 匆匆那年</title>
@@ -225,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE%E3%80%81%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A%E3%80%81HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -466,7 +466,7 @@
 </noscript>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liLqTSwQyfZZg9vA","client_secret":"428d4b06f3b203793e8574f7e0a6c4c1e366d037","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"9f81ddd184104f78712e490293ba1f0b"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liLqTSwQyfZZg9vA","client_secret":"428d4b06f3b203793e8574f7e0a6c4c1e366d037","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"5a4f9cfe0dfcf9d99b4121c446cc336d"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 
 </body>

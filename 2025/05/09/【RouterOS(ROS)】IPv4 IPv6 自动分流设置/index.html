@@ -22,7 +22,7 @@
     <meta name="description" content="本文基于 ROS 7.18.2 编写前言 IPv6 日渐普及，最近闲来无事，想着把 RouterOS 上的分流规则改为 IPv4 &amp; IPv6，因为 IPv6 的分流设置和 IPv4 有诸多不同，在此记录一下 自动更新分流规则的脚本左侧 System → Scripts，新建一个用于自动更新分流规则的脚本【RouterOS(ROS)】自动更新分流规则 by 2022  之前的文章有一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【RouterOS(ROS)】IPv4 &amp; IPv6 自动分流设置">
-<meta property="og:url" content="https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:url" content="https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/index.html">
 <meta property="og:site_name" content="匆匆那年">
 <meta property="og:description" content="本文基于 ROS 7.18.2 编写前言 IPv6 日渐普及，最近闲来无事，想着把 RouterOS 上的分流规则改为 IPv4 &amp; IPv6，因为 IPv6 的分流设置和 IPv4 有诸多不同，在此记录一下 自动更新分流规则的脚本左侧 System → Scripts，新建一个用于自动更新分流规则的脚本【RouterOS(ROS)】自动更新分流规则 by 2022  之前的文章有一">
 <meta property="og:locale" content="zh_CN">
@@ -52,10 +52,10 @@
 <meta name="twitter:image" content="https://tty228.github.io/images/2025/1_1.png">
 
 
-<link rel="canonical" href="https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/">
+<link rel="canonical" href="https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/","path":"2025/05/09/【RouterOS(ROS)】IPv4 & IPv6 自动分流设置/","title":"【RouterOS(ROS)】IPv4 & IPv6 自动分流设置"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/","path":"2025/05/09/【RouterOS(ROS)】IPv4 IPv6 自动分流设置/","title":"【RouterOS(ROS)】IPv4 & IPv6 自动分流设置"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>【RouterOS(ROS)】IPv4 & IPv6 自动分流设置 | 匆匆那年</title>
@@ -234,7 +234,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -553,7 +553,7 @@
 </noscript>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liLqTSwQyfZZg9vA","client_secret":"428d4b06f3b203793e8574f7e0a6c4c1e366d037","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"af8925008c1ee36d20b0f7ad632d4b57"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liLqTSwQyfZZg9vA","client_secret":"428d4b06f3b203793e8574f7e0a6c4c1e366d037","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"89920d14e28b352b6a474eb48912e45f"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 
 </body>

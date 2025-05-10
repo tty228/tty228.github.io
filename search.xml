@@ -35,7 +35,7 @@
   </entry>
   <entry>
     <title>【RouterOS(ROS)】IPv4 &amp; IPv6 自动分流设置</title>
-    <url>/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&amp;%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/</url>
+    <url>/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
 <li></li>
 </ul>
@@ -408,7 +408,7 @@
   </entry>
   <entry>
     <title>ALL in one 记录二（PVE 初装设置&amp;核显直通&amp;HTPC相关设置）</title>
-    <url>/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE&amp;%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A&amp;HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/</url>
+    <url>/2022/05/25/ALL%20in%20one%20%E8%AE%B0%E5%BD%95%E4%BA%8C%EF%BC%88PVE%20%E5%88%9D%E8%A3%85%E8%AE%BE%E7%BD%AE%E3%80%81%E6%A0%B8%E6%98%BE%E7%9B%B4%E9%80%9A%E3%80%81HTPC%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因为新购入了主机，需要重新调试 PVE ，在这里做一些记录</p>
 <h2 id="PVE初装"><a href="#PVE初装" class="headerlink" title="PVE初装"></a>PVE初装</h2><h4 id="1-BIOS设置"><a href="#1-BIOS设置" class="headerlink" title="1. BIOS设置"></a>1. BIOS设置</h4><p>1）debian 默认 BIOS 时间为 UTC 时间，时间不对的情况下会造成主机开启关闭状态显示不正常，并造成令牌验证失败频繁退出登录，所以最好调整 BIOS 时间为 UTC 时间<br>PVE 安装时间同步软件也可以，但是初装电脑，开机网络不通的时候虚拟机开关会造成以上问题，所以推荐直接改 BIOS 时间<br>2）确认开启虚拟化<br>根据需要确认开启或关闭 CSM 、CPU 节能、板载声卡、来电自启动等选项（CPU C6&#x2F;C7&#x2F;C10 等节能请确认硬件支持再开启，以免造成低负载随机死机）</p>
 <h4 id="2-PVE安装"><a href="#2-PVE安装" class="headerlink" title="2. PVE安装"></a>2. PVE安装</h4><p>官网下载镜像：<a href="https://www.proxmox.com/en/downloads">https://www.proxmox.com/en/downloads</a><br>使用 U盘刻录软件刻录即可，我这里使用的是 balenaEtcher<br>为了方便设置管理口，只插上一根自动分配IP的网线到要要设置的管理口上，IP 可以在安装界面上更改，主要是为了分辨网口编号<br>（尽量不要使用板载网卡，有些主板官方内核板载网卡、板载声卡等设备无法拆分，会导致后续声卡直通时出问题，我这里从 I340T4 里面选了一个口作为管理口使用）</p>
