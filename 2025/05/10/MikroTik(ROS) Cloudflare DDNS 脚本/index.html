@@ -19,30 +19,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"tty228.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.23.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="分流设置参照 ：ROS 分流设置  此处不再详述  下载并导入规则   1234567891011121314# 下载文件&#x2F;tool fetch url&#x3D;http:&#x2F;&#x2F;www.iwik.org&#x2F;ipcountry&#x2F;mikrotik&#x2F;CN# 关闭日志输出，避免刷屏&#x2F;system logging disable 0# 载入列表&#x2F;import file-name&#x3D;CN# 恢复日志输出输出选项&#x2F;syst">
+    <meta name="description" content="本文基于 ROS 7.18.2 编写前言因为最近忽悠了个同事玩NAS，暂时用的我的域名，给他整完反代之后，看着 cloudflare 一大串的域名记录，看着很蛋疼，索性把没必要更新的地址全都换成了 CNAME 记录，看起来清爽多了然后还是感觉原本的脚本不太好用，就重新写了一个脚本自用和网上流传的脚本，主要有以下改进：  ✅ 支持多个域名和记录类型（A &#x2F; AAAA）同时更新 🔐">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【RouterOS(ROS)】自动更新分流规则">
-<meta property="og:url" content="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/index.html">
+<meta property="og:title" content="【RouterOS(ROS)】Cloudflare DDNS 脚本">
+<meta property="og:url" content="https://tty228.github.io/2025/05/10/MikroTik(ROS)%20Cloudflare%20DDNS%20%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="岛">
-<meta property="og:description" content="分流设置参照 ：ROS 分流设置  此处不再详述  下载并导入规则   1234567891011121314# 下载文件&#x2F;tool fetch url&#x3D;http:&#x2F;&#x2F;www.iwik.org&#x2F;ipcountry&#x2F;mikrotik&#x2F;CN# 关闭日志输出，避免刷屏&#x2F;system logging disable 0# 载入列表&#x2F;import file-name&#x3D;CN# 恢复日志输出输出选项&#x2F;syst">
+<meta property="og:description" content="本文基于 ROS 7.18.2 编写前言因为最近忽悠了个同事玩NAS，暂时用的我的域名，给他整完反代之后，看着 cloudflare 一大串的域名记录，看着很蛋疼，索性把没必要更新的地址全都换成了 CNAME 记录，看起来清爽多了然后还是感觉原本的脚本不太好用，就重新写了一个脚本自用和网上流传的脚本，主要有以下改进：  ✅ 支持多个域名和记录类型（A &#x2F; AAAA）同时更新 🔐">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-09T11:37:03.312Z">
-<meta property="article:modified_time" content="2022-06-18T12:28:58.760Z">
+<meta property="article:published_time" content="2025-05-10T05:35:43.678Z">
+<meta property="article:modified_time" content="2025-05-10T05:44:28.718Z">
 <meta property="article:author" content="tty228">
 <meta property="article:tag" content="RouterOS">
 <meta property="article:tag" content="ROS">
-<meta property="article:tag" content="ROS脚本">
-<meta property="article:tag" content="ROS分流">
+<meta property="article:tag" content="Cloudflare DDNS">
+<meta property="article:tag" content="ROS Cloudflare DDNS">
+<meta property="article:tag" content="ROS Script">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/">
+<link rel="canonical" href="https://tty228.github.io/2025/05/10/MikroTik(ROS)%20Cloudflare%20DDNS%20%E8%84%9A%E6%9C%AC/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/","path":"2022/06/09/【RouterOS(ROS)】自动更新分流规则/","title":"【RouterOS(ROS)】自动更新分流规则"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://tty228.github.io/2025/05/10/MikroTik(ROS)%20Cloudflare%20DDNS%20%E8%84%9A%E6%9C%AC/","path":"2025/05/10/MikroTik(ROS) Cloudflare DDNS 脚本/","title":"【RouterOS(ROS)】Cloudflare DDNS 脚本"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>【RouterOS(ROS)】自动更新分流规则 | 岛</title>
+<title>【RouterOS(ROS)】Cloudflare DDNS 脚本 | 岛</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BXH60QJXZ"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-2BXH60QJXZ","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -167,7 +168,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#End"><span class="nav-number">1.</span> <span class="nav-text">End</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E5%9F%BA%E4%BA%8E-ROS-7-18-2-%E7%BC%96%E5%86%99"><span class="nav-number">1.</span> <span class="nav-text">本文基于 ROS 7.18.2 编写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.2.</span> <span class="nav-text">配置说明</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -218,7 +219,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/">
+    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2025/05/10/MikroTik(ROS)%20Cloudflare%20DDNS%20%E8%84%9A%E6%9C%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -231,12 +232,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="【RouterOS(ROS)】自动更新分流规则 | 岛">
+      <meta itemprop="name" content="【RouterOS(ROS)】Cloudflare DDNS 脚本 | 岛">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【RouterOS(ROS)】自动更新分流规则
+          【RouterOS(ROS)】Cloudflare DDNS 脚本
         </h1>
 
         <div class="post-meta-container">
@@ -246,15 +247,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-09 19:37:03" itemprop="dateCreated datePublished" datetime="2022-06-09T19:37:03+08:00">2022-06-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-18 20:28:58" itemprop="dateModified" datetime="2022-06-18T20:28:58+08:00">2022-06-18</time>
+      <time title="创建时间：2025-05-10 13:35:43 / 修改时间：13:44:28" itemprop="dateCreated datePublished" datetime="2025-05-10T13:35:43+08:00">2025-05-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -283,16 +278,24 @@
     
     
     <div class="post-body" itemprop="articleBody"><ul>
-<li><p>分流设置参照 ：<a target="_blank" rel="noopener" href="https://www.itxiaoniao.net/archives/448/" title="ROS 分流设置">ROS 分流设置</a></p>
-</li>
-<li><p>此处不再详述</p>
-</li>
-<li><p>下载并导入规则</p>
-</li>
+<li></li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 下载文件</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik/CN</span><br><span class="line"># 关闭日志输出，避免刷屏</span><br><span class="line">/system logging disable 0</span><br><span class="line"># 载入列表</span><br><span class="line">/import file-name=CN</span><br><span class="line"># 恢复日志输出输出选项</span><br><span class="line">/system logging enable 0</span><br><span class="line"># 查看当前列表数量</span><br><span class="line">:local CN [:len [/ip firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line"># 删除文件</span><br><span class="line">/file remove [find name=&quot;CN&quot;]</span><br><span class="line"># 写入日志</span><br><span class="line">:log info (&quot;CN列表更新:&quot;.&quot;$CN&quot;.&quot;条规则&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="本文基于-ROS-7-18-2-编写"><a href="#本文基于-ROS-7-18-2-编写" class="headerlink" title="本文基于 ROS 7.18.2 编写"></a><strong>本文基于 ROS 7.18.2 编写</strong></h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>因为最近忽悠了个同事玩NAS，暂时用的我的域名，给他整完反代之后，看着 cloudflare 一大串的域名记录，看着很蛋疼，索性把没必要更新的地址全都换成了 CNAME 记录，看起来清爽多了<br>然后还是感觉原本的脚本不太好用，就重新写了一个脚本自用<br>和网上流传的脚本，主要有以下改进：</p>
+<ul>
+<li>✅ 支持多个域名和记录类型（A &#x2F; AAAA）同时更新</li>
+<li>🔐 使用 Cloudflare API Token，设置更简单</li>
+<li>➕ 自动新建域名记录，无需手动创建</li>
+<li>🧠 使用缓存机制，避免高频 API 请求，支持强制更新时间间隔</li>
+<li>📤 支持提交本机或内网设备的 IPv6 地址（如 ::1、手动后缀拼接、MAC 地址获取）</li>
+<li>📡 使用 Cloudflare DNS API 读取域名记录，而非 DNS 解析</li>
+</ul>
+<p>其实本来应该加上可以同步多个设备 IPv6 地址的，不过考虑到设置反代之后其实根本不需要这个功能，就懒得做了</p>
+<span id="more"></span>
+<h4 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h4><p>设置方面比较简单，只需要在脚本顶部设置以下变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:local CFiface &quot;pppoe-out1&quot;      # 获取IPv4地址的接口</span><br><span class="line">:local CFiface6 &quot;pppoe-out1&quot;     # 获取IPv6前缀的接口</span><br><span class="line">:local CFzoneid &quot;你的Zone ID&quot;    # 区域 ID</span><br><span class="line">:local CFtoken &quot;你的API令牌&quot;      # 创建令牌-&gt;编辑区域 DNS (请勿使用全局 API)</span><br><span class="line"># 设置要更新的记录（支持多个）：</span><br><span class="line">:local DomainsToUpdate &#123;</span><br><span class="line">    &quot;v4.domain.com|A&quot;;</span><br><span class="line">    &quot;v6.domain.com|AAAA&quot;;</span><br><span class="line">    &quot;ds.domain.com|A&quot;;</span><br><span class="line">    &quot;ds.domain.com|AAAA&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/tty228/mikrotik-scripts/tree/main/cloudflare_ddns" title="项目地址">项目地址</a></p>
+
     </div>
 
     
@@ -303,22 +306,20 @@
           <div class="post-tags">
               <a href="/tags/RouterOS/" rel="tag"># RouterOS</a>
               <a href="/tags/ROS/" rel="tag"># ROS</a>
-              <a href="/tags/ROS%E8%84%9A%E6%9C%AC/" rel="tag"># ROS脚本</a>
-              <a href="/tags/ROS%E5%88%86%E6%B5%81/" rel="tag"># ROS分流</a>
+              <a href="/tags/Cloudflare-DDNS/" rel="tag"># Cloudflare DDNS</a>
+              <a href="/tags/ROS-Cloudflare-DDNS/" rel="tag"># ROS Cloudflare DDNS</a>
+              <a href="/tags/ROS-Script/" rel="tag"># ROS Script</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91UPNP%E8%AE%BE%E7%BD%AE-%E8%87%AA%E5%8A%A8%E8%80%81%E5%8C%96%E5%8F%8A%E9%87%8D%E6%8B%A8%E5%90%8E%E4%BF%AE%E6%94%B9IP/" rel="prev" title="【RouterOS(ROS)】UPNP 设置 - 自动老化及重拨后修改 IP">
-                  <i class="fa fa-angle-left"></i> 【RouterOS(ROS)】UPNP 设置 - 自动老化及重拨后修改 IP
+                <a href="/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20&%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/" rel="prev" title="【RouterOS(ROS)】IPv4 & IPv6 自动分流设置">
+                  <i class="fa fa-angle-left"></i> 【RouterOS(ROS)】IPv4 & IPv6 自动分流设置
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/06/18/%E3%80%90Proxmox%20VE%E3%80%91PVE%20%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%20CPU%E3%80%81%E4%B8%BB%E6%9D%BF%E3%80%81NVME%E3%80%81%E7%A1%AC%E7%9B%98%20%E6%B8%A9%E5%BA%A6%E7%AD%89%E4%BF%A1%E6%81%AF/" rel="next" title="【Proxmox VE】PVE 首页显示 CPU、主板、NVME、硬盘 温度等信息">
-                  【Proxmox VE】PVE 首页显示 CPU、主板、NVME、硬盘 温度等信息 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -386,7 +387,7 @@
 </noscript>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liLqTSwQyfZZg9vA","client_secret":"428d4b06f3b203793e8574f7e0a6c4c1e366d037","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a9381d512f6827f1c71701552f32992f"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"tty228","repo":"tty228.github.io","client_id":"Ov23liLqTSwQyfZZg9vA","client_secret":"428d4b06f3b203793e8574f7e0a6c4c1e366d037","admin_user":"tty228","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"9d0196a170107e00b648f48658e58f3a"}</script>
 <script src="/js/third-party/comments/gitalk.js" defer></script>
 
 </body>
