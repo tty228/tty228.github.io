@@ -7,8 +7,10 @@
 <li></li>
 </ul>
 <h2 id="本文基于-ROS-7-18-2-编写"><a href="#本文基于-ROS-7-18-2-编写" class="headerlink" title="本文基于 ROS 7.18.2 编写"></a><strong>本文基于 ROS 7.18.2 编写</strong></h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p> IPv6 日渐普及，最近闲来无事，想着把 RouterOS 上的分流规则改为 IPv4 &amp; IPv6，因为 IPv6 的分流设置和 IPv4 有诸多不同，在此记录一下</p>
-<h3 id="自动更新分流规则的脚本"><a href="#自动更新分流规则的脚本" class="headerlink" title="自动更新分流规则的脚本"></a>自动更新分流规则的脚本</h3><p>左侧 System → Scripts，新建一个用于自动更新分流规则的脚本<br><a href="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/" title="【RouterOS(ROS)】自动更新分流规则 by 2022">【RouterOS(ROS)】自动更新分流规则 by 2022</a>  之前的文章有一个适用于 IPv4 的更新脚本，我们在这里需要做一下修改，使它可以适用于 IPv4 &amp; IPv6<br>这里使用的是已经制作好的 IP 列表文件</p>
+<h3 id="自动更新分流规则的脚本"><a href="#自动更新分流规则的脚本" class="headerlink" title="自动更新分流规则的脚本"></a>自动更新分流规则的脚本</h3><p>左侧 System → Scripts，新建一个用于自动更新分流规则的脚本<br><a href="https://tty228.github.io/2022/06/09/%E3%80%90RouterOS(ROS)%E3%80%91%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99/" title="【RouterOS(ROS)】自动更新分流规则 by 2022">【RouterOS(ROS)】自动更新分流规则 by 2022</a>  之前的文章有一个适用于 IPv4 的更新脚本，我们在这里需要做一下修改，使它可以适用于 IPv4 &amp; IPv6  </p>
+<p>这里使用的是已经制作好的 IP 列表文件</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 下载 IPv4 并重命名</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik/CN dst-path=CN_ipv4</span><br><span class="line"></span><br><span class="line"># 下载 IPv6 并重命名</span><br><span class="line">/tool fetch url=http://www.iwik.org/ipcountry/mikrotik_ipv6/CN dst-path=CN_ipv6</span><br><span class="line"></span><br><span class="line"># 关闭日志输出避免刷屏</span><br><span class="line">/system logging disable 0</span><br><span class="line"></span><br><span class="line">/import file-name=CN_ipv4</span><br><span class="line">:local CNv4 [:len [/ip firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line">/file remove [find name=&quot;CN_ipv4&quot;]</span><br><span class="line"></span><br><span class="line">/import file-name=CN_ipv6</span><br><span class="line">:local CNv6 [:len [/ipv6 firewall address-list find list=&quot;CN&quot;]]</span><br><span class="line">/file remove [find name=&quot;CN_ipv6&quot;]</span><br><span class="line"></span><br><span class="line"># 恢复日志输出</span><br><span class="line">/system logging enable 0</span><br><span class="line">:log info (&quot;CN列表更新: IPv4 &quot; . $CNv4 . &quot;条, IPv6 &quot; . $CNv6 . &quot;条&quot;)</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 <hr>
 <p>成功的话应该能在防火墙和日志中看到如下内容：<br><img src="/images/2025/1_1.png" alt="脚本运行状态"></p>
 <h3 id="路由表设置"><a href="#路由表设置" class="headerlink" title="路由表设置"></a>路由表设置</h3><p>左侧 Routing → Tables，新建一个路由表，名字自己随便写，我这里使用的是 openwrt，路由表用于防火墙标记和指定流量出口</p>
@@ -169,6 +171,8 @@
         <tag>RouterOS</tag>
         <tag>ROS</tag>
         <tag>ROS 分流</tag>
+        <tag>ROS IPv4 分流</tag>
+        <tag>ROS IPv6分流</tag>
       </tags>
   </entry>
   <entry>
@@ -179,6 +183,7 @@
 </ul>
 <p>网上各种版本的 PVE 首页温度 DIY 脚本，但萝卜青菜各有所爱，总是难得遇到钟情的那一款<br>自行 DIY 的话，正则 + js 入门确实需要点门槛<br>所以这里提供另一种实现方式 json，清晰明了，便于阅读，修改简单<br>无论是 温度、风扇转速、硬盘温度、硬盘信息都可以轻松搞定</p>
 <p><img src="/images/2022/6_1.png"><br><img src="/images/2022/6_2.png"></p>
+<span id="more"></span>
 <hr>
 <h4 id="出错原因及处理方式"><a href="#出错原因及处理方式" class="headerlink" title="出错原因及处理方式"></a>出错原因及处理方式</h4><ol>
 <li><strong>首页转圈，只显示一部分数据</strong><br>一般都是由于参数值读取错误造成的<br>假设代码片段中有如下参数<br><code>var temperature = value[&#39;temperature&#39;][&#39;current&#39;].toFixed(1);</code><br>但硬盘 smartctl 返回值中没有温度值、或键值名称不一致，就会造成参数读取错误，首页转圈<br><img src="/images/2022/6_3.png"></li>
@@ -314,6 +319,7 @@
 <p>在这里对踩过的坑，PVE 直通、调试等做一个记录，避免自己忘记，也希望给看到的网友带来一点帮助。</p>
 <p><img src="/images/2022/1_3.jpg" alt="成品展示" title="成品展示"></p>
 <p><img src="/images/2022/1_4.png" alt="功耗（PVE 打开 ROS+openwrt，空载状态）" title="功耗（PVE 打开 ROS+openwrt，空载状态）"></p>
+<span id="more"></span>
 <h2 id="配件清单和选购原因"><a href="#配件清单和选购原因" class="headerlink" title="配件清单和选购原因"></a>配件清单和选购原因</h2><p><img src="/images/2022/1_5.jpg" alt="购买备注" title="购买备注"></p>
 <h4 id="机箱（第一个坑）："><a href="#机箱（第一个坑）：" class="headerlink" title="机箱（第一个坑）："></a>机箱（第一个坑）：</h4><p>组装 ITX 或者 MATX 主机，一定要先选好机箱再围绕机箱选购其他配件，我一开始就是没挑好机箱就开始买配件，最后又把还在路上的电源给退了，而且如果把内存条插槽的数量降一降，还可以选择更小的主板，但当时我已经在海鲜市场上买好了主板，于是机箱选起来很蛋疼，花了我很久的时间 </p>
 <p>因为柜子空间为 80cm<em>36cm</em>50cm，所以只能选择长度小于 32 的机箱（还要考虑插头预留长度），所以 pass 掉了很多机箱，备注都在上图，最终选择了 小喆优品B3全铝MATX机箱 蓝色款，326<em>161</em>275</p>
@@ -378,6 +384,7 @@
 <p>数据中心-存储-删除local-lvm<br>选择local，编辑，在内容里添加磁盘映像和容器<br>如果需要还原之前的虚拟机，则需要使用如下命令（无法使用 WEB 页面还原，因为储存位置不一致）</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">qmrestore /var/lib/vz/dump/vzdump-qemu-101-2022_05_19-19_07_41.vma.zst 101 -storage local</span><br></pre></td></tr></table></figure>
 <h5 id="2）换源、关闭订阅、首页温度提示等操作"><a href="#2）换源、关闭订阅、首页温度提示等操作" class="headerlink" title="2）换源、关闭订阅、首页温度提示等操作"></a>2）换源、关闭订阅、首页温度提示等操作</h5><p>参考：<br><a href="https://github.com/xiangfeidexiaohuo/ProxmoxVE-7.0-DIY">https://github.com/xiangfeidexiaohuo/ProxmoxVE-7.0-DIY</a><br><a href="http://songw.top/archives/748.html">http://songw.top/archives/748.html</a><br><a href="https://zry.io/archives/285">https://zry.io/archives/285</a></p>
+<span id="more"></span>
 <p>3）主页显示温度<br>使用环境：<br>sensors 有风扇（fan:）、CPU温度（Package id 0:）、PCI温度（PECI Agent 0: ）输出，一块 NVME、两块 SATA<br>恩山代码已做空值错误处理<br>详细说明：<br><a href="https://www.right.com.cn/forum/thread-8236620-1-1.html">https://www.right.com.cn/forum/thread-8236620-1-1.html</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新软件包列表：</span></span><br><span class="line">apt-get update </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装lm-sensors：</span></span><br><span class="line">apt-get install lm-sensors</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">初始化 sensors(一路<span class="built_in">yes</span>，回车)：</span></span><br><span class="line">sensors-detect</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">给予 smartctl 权限（如不需要硬盘信息可以忽略）</span></span><br><span class="line">chmod +s /usr/sbin/smartctl</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取温度信息：</span></span><br><span class="line">sensors</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这个时候是没有风扇等信息的，需要重启：</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 
