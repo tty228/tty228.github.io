@@ -168,10 +168,10 @@
 <li>如果需要将 DNS 修改为旁路网关，需检查 NAT 规则，确保未开启 DNS 劫持，如果使用 ND 指定分配 DNS 则不需要关闭劫持规则</li>
 <li>在能过获得前缀的情况下，IPv6 通常不需要开启 IP 伪装，如果错误的开启 IP 伪装，会导致外部服务器只能获取到网关 IPv6 地址，而非真实的设备 IPv6 地址<br><img src="/images/2025/1_10.png" alt="IPv6 防火墙规则"></li>
 </ol>
-<h4 id="兼容安卓残疾-IPv6"><a href="#兼容安卓残疾-IPv6" class="headerlink" title="兼容安卓残疾 IPv6"></a>兼容安卓残疾 IPv6</h4><h5 id="IPv6-ND-设置"><a href="#IPv6-ND-设置" class="headerlink" title="IPv6 ND 设置"></a>IPv6 ND 设置</h5><p>总所周知，安卓的 IPv6 网络功能愚蠢又弱智，既不支持 DHCPv6，也不能指定 DNS 地址，也不支持网关宣告的 fe80 本地链路 DNS 地址，只能使用动态的 GUA（或者需要在本地链路注明接口名称？），这给分流带来了很多不方便，所以如果你使用的是安卓设备，又不想通过防火墙拒绝 ICMPv6 (ND) 包来禁用安卓设备的 IPv6 功能的话，可以把 ND DNS 设置清空<br><img src="/images/2025/1_11.png" alt="IPv6 ND 设置"></p>
+<h4 id="兼容安卓残疾-IPv6"><a href="#兼容安卓残疾-IPv6" class="headerlink" title="兼容安卓残疾 IPv6"></a>兼容安卓残疾 IPv6</h4><h5 id="IPv6-ND-设置"><a href="#IPv6-ND-设置" class="headerlink" title="IPv6 ND 设置"></a>IPv6 ND 设置</h5><p>总所周知，安卓的 IPv6 网络功能愚蠢又弱智，既不支持 DHCPv6，也不能指定 DNS 地址，也不支持网关宣告的 fe80 本地链路 DNS 地址，只能使用 GUA 或 ULA，这给分流带来了很多不方便，所以如果你使用的是安卓设备，又不想通过防火墙拒绝 ICMPv6 (ND) 包来禁用安卓设备的 IPv6 功能的话，可以把 ND DNS 设置清空<br><img src="/images/2025/1_11.png" alt="IPv6 ND 设置"></p>
 <ul>
-<li>删除 DNS 地址信息</li>
-<li>在 ND 信息中不包含 DNS 地址<br>这样可以使安卓设备仅使用 IPv4 DNS 地址<br><strong>但这可能会因为缺少 IPV6 DNS，造成部分设备需要手动指定 DNS 才能上网，如某些单网口的 OpenWrt，谨慎使用</strong><br><strong>如果默认设置或者分发 fe80:: DNS 可以正常上网时，不建议修改</strong></li>
+<li>删除 DNS 地址信息或使用桥接接口的 fe80:: 本地链路地址</li>
+<li>如果清空了 DNS 信息，取消勾选，如果使用 fe80:: 本地链路地址，保持勾选<br>这样可以使安卓设备仅使用 IPv4 DNS 地址<br><strong>当 ND 信息中不包含 DNS 时，可能会造成部分设备需要手动指定 DNS 才能上网，如某些单网口的 OpenWrt，谨慎使用</strong><br>分发 fe80:: DNS 一般也可以实现安卓设备仅使用 IPv4 DNS，因为安卓并不支持 LLA DNS<br>如果你非要给安卓设备指定旁路网关的 IPv6 地址，请使用 ULA 地址，但网关离线时很难自动切换，这应该和我们使用旁路网关的初衷不一致<br><img src="/images/2025/1_15.png" alt="IPv6 ND 设置"></li>
 </ul>
 <h5 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h5><p>其实经过上面的设置之后，基本上已经可以正常上网了，但如果 IPv6 防火墙开启了丢弃无效的转发包，部分安卓设备会因为路由标记非对称路由(?)，造成 TCP 握手未完成且包被丢弃，造成 IPv6 无法上网<br>有以下几种解决方案：</p>
 <ol>
