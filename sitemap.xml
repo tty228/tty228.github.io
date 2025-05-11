@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/</loc>
+    <loc>https://tty228.github.io/2025/05/11/%E3%80%90RouterOS(ROS)%E3%80%91%E5%9C%A8%20ROS%E3%80%81OpenWrt%20%E4%B8%8A%20%E8%AE%BE%E7%BD%AE%20VRRP/</loc>
     
     <lastmod>2025-05-11</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://tty228.github.io/2025/05/11/%E3%80%90RouterOS(ROS)%E3%80%91%E5%9C%A8%20ROS%E3%80%81OpenWrt%20%E4%B8%8A%20%E8%AE%BE%E7%BD%AE%20VRRP/</loc>
+    <loc>https://tty228.github.io/2025/05/09/%E3%80%90RouterOS(ROS)%E3%80%91IPv4%20IPv6%20%E8%87%AA%E5%8A%A8%E5%88%86%E6%B5%81%E8%AE%BE%E7%BD%AE/</loc>
     
     <lastmod>2025-05-11</lastmod>
     
@@ -287,6 +287,13 @@
   
   <url>
     <loc>https://tty228.github.io/categories/RouterOS/</loc>
+    <lastmod>2025-05-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://tty228.github.io/categories/OpenWrt/</loc>
     <lastmod>2025-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
