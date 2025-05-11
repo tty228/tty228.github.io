@@ -172,7 +172,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -183,7 +183,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -200,6 +200,133 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://tty228.github.io/2025/05/11/%E3%80%90RouterOS(ROS)%E3%80%91%E5%9C%A8%20ROS%E3%80%81OpenWrt%20%E4%B8%8A%20%E8%AE%BE%E7%BD%AE%20VRRP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tty228">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="匆匆那年">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 匆匆那年">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/05/11/%E3%80%90RouterOS(ROS)%E3%80%91%E5%9C%A8%20ROS%E3%80%81OpenWrt%20%E4%B8%8A%20%E8%AE%BE%E7%BD%AE%20VRRP/" class="post-title-link" itemprop="url">【RouterOS(ROS)】在 ROS、OpenWrt 上 设置 VRRP</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-05-11 23:53:42" itemprop="dateCreated datePublished" datetime="2025-05-11T23:53:42+08:00">2025-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-05-12 00:54:00" itemprop="dateModified" datetime="2025-05-12T00:54:00+08:00">2025-05-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/RouterOS/" itemprop="url" rel="index"><span itemprop="name">RouterOS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li></li>
+</ul>
+<h2 id="本文基于-ROS-7-18-2、ImmortalWrt-24-10-1、keepalived-2-3-1-r1-编写"><a href="#本文基于-ROS-7-18-2、ImmortalWrt-24-10-1、keepalived-2-3-1-r1-编写" class="headerlink" title="本文基于 ROS 7.18.2、ImmortalWrt 24.10.1、keepalived 2.3.1-r1 编写"></a><strong>本文基于 ROS 7.18.2、ImmortalWrt 24.10.1、keepalived 2.3.1-r1 编写</strong></h2><p>简单的记录一下 RouterOS 和 OpenWrt 上的 VRRP 设置</p>
+<h3 id="RouterOS-设置"><a href="#RouterOS-设置" class="headerlink" title="RouterOS 设置"></a>RouterOS 设置</h3><h4 id="VRRP-接口设置"><a href="#VRRP-接口设置" class="headerlink" title="VRRP 接口设置"></a>VRRP 接口设置</h4><p>左侧 Interfaces → VRRP，新建一个接口<br><img src="/images/2025/2_1.png" alt="接口设置"></p>
+<ul>
+<li>interface：  bridge1 # 选择桥接接口名称，或网口名称</li>
+<li>VRID：       51  # 填写一个数字，一会需要和 OpenWrt 上的保持一致，这里填写了 51</li>
+<li>Priority：	  100  # 权重，这里使用了默认</li>
+</ul>
+<p>其余设置保持默认即可：</p>
+<ul>
+<li>Authentication： 认证方式</li>
+<li>Password: 密码</li>
+<li>Preenption Mode：是否允许从低优先级设备中接管虚拟 IP</li>
+<li>version： 如果这里使用了默认的版本3，在 OpenWrt 中需要保持一致</li>
+</ul>
+<h4 id="VRRP-地址设置"><a href="#VRRP-地址设置" class="headerlink" title="VRRP 地址设置"></a>VRRP 地址设置</h4><p>左侧 IP → Addresses，新建一个 IP 地址（下图 IP 显示红色是因为当前虚拟 IP 被 OpenWrt 接管）<br><img src="/images/2025/2_2.png" alt="IP 设置"></p>
+<ul>
+<li>Address：192.168.1.2&#x2F;24  # 填入你想要使用的 IP</li>
+<li>Network：192.168.1.0  # Address 填入掩码时会自动计算，不用管</li>
+<li>Interface： vvrp1  # 选择刚刚新建的 VRRP 接口，因为刚刚没有修改，默认名称为 vvrp1</li>
+</ul>
+<h4 id="防火墙设置"><a href="#防火墙设置" class="headerlink" title="防火墙设置"></a>防火墙设置</h4><p>如果虚拟 IP 可以 ping 通没有网络（如 nslookup 192.168.1.2 时无法响应、设置为网关时无法上网）<br>检查防火墙中是否设置了拒绝流量，如这里的 <code>defconf: drop all not from LAN</code>，<br><img src="/images/2025/2_3.png" alt="防火墙设置"></p>
+<p>如果存在类似的规则，在其上方新增一条 input 规则，允许 vvrp1 接口的流量通过</p>
+<h3 id="OpenWrt-设置"><a href="#OpenWrt-设置" class="headerlink" title="OpenWrt 设置"></a>OpenWrt 设置</h3><h4 id="安装-keepalived"><a href="#安装-keepalived" class="headerlink" title="安装 keepalived"></a>安装 keepalived</h4><ol>
+<li>命令行 <code>opkg update</code> 或者在软件包中更新列表后，安装 keepalived，这里不推荐安装 luci-app-keepalived，其实用配置文件更方便（ <strong>最主要的是查找教程方便</strong> ）</li>
+<li>大部分的 OpenWrt 不会专门为了 VRRP 功能修改内核参数，使用前需要修改 <code>/etc/sysctl.conf</code> 文件，添加如下设置并重启，否则无法绑定虚拟 IP</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.conf.all.arp_announce = 2</span><br><span class="line">net.ipv4.conf.default.arp_announce = 2</span><br><span class="line">net.ipv4.conf.lo.arp_announce = 2</span><br><span class="line">net.ipv4.conf.all.arp_ignore = 1</span><br><span class="line">net.ipv4.conf.default.arp_ignore = 1</span><br><span class="line">net.ipv4.conf.lo.arp_ignore = 1</span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line">net.ipv4.ip_nonlocal_bind = 1</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>重启后修改 <code>/etc/config/keepalived</code> 文件为以下内容，作用为忽略 <code>/etc/config/keepalived</code> 文件内容，使用 keepalived.conf，因为使用标准的 .conf 文件更方便查找教程：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">config globals &#x27;globals&#x27;</span><br><span class="line">option alt_config_file		&quot;/etc/keepalived/keepalived.conf&quot;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>修改 <code>/etc/keepalived/keepalived.conf</code> 文件，这是一份最简化并可用的配置内容</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id VRRP_OPENWRT         # 自定义标识（随便写）</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER                  # 初始状态为 MASTER（VRRPv3 中实际由优先级决定）</span><br><span class="line">    interface br-lan              # 监听的物理接口（OpenWrt 中通常为 br-lan）</span><br><span class="line">    virtual_router_id 51          # VRRP 组 ID（1-255，需与对端一致）</span><br><span class="line">    priority 150                  # 优先级（0-254，值越大越优先）</span><br><span class="line">    advert_int 1                  # 通告间隔（秒）</span><br><span class="line">    version 3                     # 因为刚刚 RouterOS 的设置使用了默认值，这里需要注明 VRRPv3 协议</span><br><span class="line">    #authentication &#123;             # 因为我使用了无认证，所以这一段不需要，已注释</span><br><span class="line">    #    auth_type PASS           # 认证类型</span><br><span class="line">    #    auth_pass 123456         # 密码</span><br><span class="line">    #&#125;</span><br><span class="line">    virtual_ipaddress &#123;           # 虚拟IP配置</span><br><span class="line">        192.168.1.2/24</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在系统 → 启动项 中重启 keepalived，或者使用命令 <code>/etc/init.d/keepalived restart</code></li>
+</ol>
+<p>现在可以观察 VRRP 的运行情况了，停止 keepalived 进程或重启 OpenWrt，观察虚拟 IP 是否成功飘动，如果未成功运行，尝试 <code>logread | grep -i keepalived</code> 查看日志输出</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -343,7 +470,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-11 23:06:51" itemprop="dateModified" datetime="2025-05-11T23:06:51+08:00">2025-05-11</time>
+      <time title="修改时间：2025-05-12 00:56:01" itemprop="dateModified" datetime="2025-05-12T00:56:01+08:00">2025-05-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
