@@ -182,7 +182,6 @@
 <p>General</p>
 </blockquote>
 <ul>
-<li>Dst.Address List： 目标地址列表，选择 CN 和 前面的空白方块 [!] ，表示目标地址不在 CN 列表中时才命中规则</li>
 <li>Routing Mark： 选择之前添加的路由表，表示仅处理已被标记的包</li>
 </ul>
 <blockquote>
@@ -191,7 +190,7 @@
 <ul>
 <li>Action：  masquerade  将源地址从 OpenWrt 伪装为 RouterOS，以正常响应回程包</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ipv6 firewall nat</span><br><span class="line">add action=masquerade chain=srcnat comment=&quot;defconf: masquerade IPv6&quot; \</span><br><span class="line">    dst-address-list=!CN routing-mark=openwrt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ipv6 firewall nat</span><br><span class="line">add action=masquerade chain=srcnat comment=&quot;defconf: masquerade IPv6&quot; \</span><br><span class="line">    routing-mark=openwrt</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>IPv4 其实也可以这样处理<br><img src="/images/2025/1_14.png" alt="IPv4 防火墙设置"></li>

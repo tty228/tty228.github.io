@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://tty228.github.io/images/2025/1_13.png">
 <meta property="og:image" content="https://tty228.github.io/images/2025/1_14.png">
 <meta property="article:published_time" content="2025-05-09T13:54:26.112Z">
-<meta property="article:modified_time" content="2025-05-10T10:47:07.329Z">
+<meta property="article:modified_time" content="2025-05-11T03:49:20.514Z">
 <meta property="article:author" content="tty228">
 <meta property="article:tag" content="RouterOS">
 <meta property="article:tag" content="ROS">
@@ -270,7 +270,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-10 18:47:07" itemprop="dateModified" datetime="2025-05-10T18:47:07+08:00">2025-05-10</time>
+      <time title="修改时间：2025-05-11 11:49:20" itemprop="dateModified" datetime="2025-05-11T11:49:20+08:00">2025-05-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -444,7 +444,6 @@
 <p>General</p>
 </blockquote>
 <ul>
-<li>Dst.Address List： 目标地址列表，选择 CN 和 前面的空白方块 [!] ，表示目标地址不在 CN 列表中时才命中规则</li>
 <li>Routing Mark： 选择之前添加的路由表，表示仅处理已被标记的包</li>
 </ul>
 <blockquote>
@@ -453,7 +452,7 @@
 <ul>
 <li>Action：  masquerade  将源地址从 OpenWrt 伪装为 RouterOS，以正常响应回程包</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ipv6 firewall nat</span><br><span class="line">add action=masquerade chain=srcnat comment=&quot;defconf: masquerade IPv6&quot; \</span><br><span class="line">    dst-address-list=!CN routing-mark=openwrt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ipv6 firewall nat</span><br><span class="line">add action=masquerade chain=srcnat comment=&quot;defconf: masquerade IPv6&quot; \</span><br><span class="line">    routing-mark=openwrt</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>IPv4 其实也可以这样处理<br><img src="/images/2025/1_14.png" alt="IPv4 防火墙设置"></li>
