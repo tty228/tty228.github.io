@@ -374,8 +374,8 @@
 <p>注：</p>
 <ol>
 <li>必须保证”跳过流量标记”的防火墙规则在”流量标记”规则的上方</li>
-<li>如果指定了 Address List 列表内设备才进行分流，且列表中不包含旁路网关地址时，不需要跳过旁路网关流量，如我的使用环境中，有一部分流量是全局的，所以还是需要 “Bypass OpenWrt” 兜底<br><img src="/images/2025/1_17.png" alt="IPv4 防火墙规则"></li>
-<li>如果防火墙规则中包含了 QoS 等包标记，不想使用 Accept 时，可以删除之前的规则，改为在”国外流量标记”规则后方添加规则，给旁路网关发起的流量重新打上 main 路由标记</li>
+<li>如果指定了 Address List 列表内设备才进行分流，且列表中不包含旁路网关地址时，不需要跳过旁路网关流量，如我的使用环境中，有一部分流量是全局的，所以还是需要 “Bypass OpenWrt” 兜底</li>
+<li>如果防火墙规则中包含了 QoS 等包标记，不想使用 Accept 时，可以删除之前的规则，改为在”国外流量标记”规则后方添加规则，给旁路网关发起的流量重新打上 main 路由标记<br><img src="/images/2025/1_17.png" alt="IPv4 防火墙规则"></li>
 <li>如果需要将 DNS 修改为旁路网关，需检查 NAT 规则，确保未开启 DNS 劫持</li>
 <li>检查 IP 伪装规则，如果使用的是 WAN 接口伪装，需要修改为整个局域网子网段，否则需要在旁路网关防火墙处设置 IP 伪装规则<br>（ <strong>或参考文末”其他设置”中的处理方案</strong> ）<br><img src="/images/2025/1_7.png" alt="IPv4 防火墙规则"></li>
 </ol>
@@ -403,7 +403,7 @@
 <li>标记国外流量标记时，勾选 [!]multicast，跳过 IPv6 组播流量</li>
 <li>标记流量包<br>下图为标记流量包<br>ICMPv6(ND)： protocol&#x3D;58 (icmpv6)<br>DHCPv6：dst-port&#x3D;546-547 protocol&#x3D;udp<br><img src="/images/2025/1_8.png" alt="IPv6 防火墙规则"></li>
 </ol>
-<h5 id="国外流量标记-1"><a href="#国外流量标记-1" class="headerlink" title="国外流量标记"></a>国外流量标记</h5><p>IPV6 通常不需要勾选 [!]local，因为流量都是公网单播地址（GUA）<br>但如果没有设置上方的规则，需要勾选 [!]multicast，跳过 IPv6 组播流量<br>同样的原因，IPv6 防火墙无法使用 Src.Address List，如果并非全局分流，需要每个设备一条规则，使用 MAC 地址<br><img src="/images/2025/1_9.png" alt="IPv6 防火墙规则"></p>
+<h5 id="国外流量标记-1"><a href="#国外流量标记-1" class="headerlink" title="国外流量标记"></a>国外流量标记</h5><p>IPV6 通常不需要勾选 [!]local，因为流量都是公网单播地址（GUA）<br>但如果没有设置上方的规则，需要勾选 [!]multicast，跳过 IPv6 组播流量<br>因为 GUA 一般为动态的（宽带前缀 + 设备后缀），不像 IPv4 是静态地址，IPv6 防火墙无法使用 Src.Address List，如果并非全局分流，需要每个设备一条规则，使用 MAC 地址<br><img src="/images/2025/1_9.png" alt="IPv6 防火墙规则"></p>
 <blockquote>
 <p>General</p>
 </blockquote>
